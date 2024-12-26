@@ -13,6 +13,10 @@
 #define ZERO_PERCENT 0
 #define ONE_HUNDRED_PERCENT 100
 
+#ifndef DEBUG_MODE
+#define DEBUG_MODE 1
+#endif
+
 /*****************************************************************/
 /* STRUCTURES                                                    */
 /*****************************************************************/
@@ -54,14 +58,14 @@ void InitializeADC(
   ///////////////////////////////////////////////////////////////
   /// Measure the voltage of a pin, avarage it with 
   /// number_of_samples and store it in the result param.
-void ReadAnalogSensorVoltage(
+uint16_t ReadAnalogSensorVoltage(
   const uint16_t number_of_samples,
   const uint8_t pin);
 
   ///////////////////////////////////////////////////////////////
   /// Re-map the ReadAnalogSensorData's output to a number
   /// range defined by TO_LOW and TO_HIGH and store it in result param.
-void ReMapOutputVoltageRange(
+uint16_t ReMapOutputVoltageRange(
   uint16_t& sensorOutput,
   const uint16_t fromLowVoltage,
   const uint16_t fromHighVoltage,

@@ -40,7 +40,15 @@ void loop()
   determineSoilMoisture(weatherData.soilMoisture);
   determineRainStatus(weatherData.rainPercent);
 
-  sendPacket(weatherData);
+  #if DEBUG_MODE
+    PrintResultsToSerialMonitor(weatherData);
+  #endif
 
-  PrintResultsToSerialMonitor(weatherData);
+  sendMessage(weatherData);
+
+  // enable sleep wakeup using a dedicated timer at RFM95_SEND_RATE
+  esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR); 
+
+  LoRa.sleep(); // put the RFM95 in sleep mode
+  esp_light_sleep_start();
 }

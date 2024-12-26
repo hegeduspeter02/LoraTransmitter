@@ -17,7 +17,7 @@ void InitializeADC(uint8_t resolution, uint8_t pin, adc_attenuation_t attenuatio
 }
 
 /****************************************************************/
-void ReadAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t pin)
+uint16_t ReadAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t pin)
 {
   uint32_t sensorOutputVoltageSummed = 0;
 
@@ -29,7 +29,7 @@ void ReadAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t pin
 }
 
 /****************************************************************/
-void ReMapOutputVoltageRange(uint16_t& sensorOutput,
+uint16_t ReMapOutputVoltageRange(uint16_t& sensorOutput,
                              const uint16_t fromLowVoltage, const uint16_t fromHighVoltage,
                              const uint16_t toLow, const uint16_t toHigh)
 {
@@ -39,12 +39,16 @@ void ReMapOutputVoltageRange(uint16_t& sensorOutput,
 /****************************************************************/
 void PrintResultsToSerialMonitor(WeatherData& weatherData)
 {
-  Serial.printf("Temp: %.2f°C\t\tHumidity: %.2f%% RH\t\tPressure: %.2f hPa\n"
+  Serial.printf("Temp: %.2f\xB0C\n"
+                "Humidity: %.2f%% RH\n"
+                "Pressure: %.2f hPa\n"
                 "UV index: %d\n"
                 "Soil moisture: %d%%\n"
-                "Rain percent: %d%%\n"
+                "Rain intensity: %d%%\n"
                 "---------------------------------------------------------\n", 
-                weatherData.temperature, weatherData.humidity, weatherData.pressure,
+                weatherData.temperature,
+                weatherData.humidity,
+                weatherData.pressure,
                 weatherData.uvIndex,
                 weatherData.soilMoisture,
                 weatherData.rainPercent);

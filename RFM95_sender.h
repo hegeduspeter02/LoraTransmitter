@@ -3,6 +3,7 @@
 
 #include <LoRa.h>
 #include <esp_sleep.h>
+#include <LoraTransmitter.h>
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
@@ -14,7 +15,8 @@
 #define SPI_MISO_PIN 19
 #define SPI_SCLK_PIN 18
 #define SPI_CS0_PIN 5
-#define RFM95_SEND_RATE 5000000 // us
+#define uS_TO_S_FACTOR 1000000 // us
+#define RFM95_SEND_RATE 5 // s
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */
@@ -22,16 +24,6 @@
 
   ///////////////////////////////////////////////////////////////
   /// Initialize a packet, put the data in it, then send it.
-void sendPacket(const WeatherData& weatherData);
-
-String weatherDataToString(const WeatherData& data)
-{
-    return to_string(data.temperature) + ";" + 
-           to_string(data.humidity) + ";" + 
-           to_string(data.pressure) + ";" + 
-           to_string(data.uvIndex) + ";" + 
-           to_string(data.soilMoisture) + ";" + 
-           to_string(data.rainPercent);
-}
+void sendMessage(const WeatherData& weatherData);
 
 #endif // RFM95_sender_H
