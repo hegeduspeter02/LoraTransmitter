@@ -1,12 +1,6 @@
 #include <LoraTransmitter.h>
-#include <BME_280.h>
-#include <GUVA.h>
-#include <SOILCAP.h>
-#include <SA_28.h>
-#include <RFM95_sender.h>
 
 WeatherData weatherData;
-AnalogSensorVoltage analogSensorVoltage;
 
 void setup()
 {
@@ -35,16 +29,17 @@ void setup()
 
 void loop()
 {
-  ReadBME280Data(BME280::TempUnit_Celsius, BME280::PresUnit_hPa, weatherData);
+  ReadBME280Data(weatherData.temperature, weatherData.humidity, weatherData.pressure);
   determineUVIndex(weatherData.uvIndex);
   determineSoilMoisture(weatherData.soilMoisture);
   determineRainStatus(weatherData.rainPercent);
 
   #if DEBUG_MODE
-    PrintResultsToSerialMonitor(weatherData);
+    PrintMeasureToSerialMonitor(weatherData);
   #endif
 
-  sendMessage(weatherData);
+  String serializedWeatherData = serializeWeatherData(weatherData);
+  sendMessage(serializedWeatherData);
 
   // enable sleep wakeup using a dedicated timer at RFM95_SEND_RATE
   esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR); 

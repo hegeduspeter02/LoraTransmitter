@@ -1,7 +1,7 @@
 #ifndef SOILCAP_H
 #define SOILCAP_H
 
-#include <LoraTransmitter.h>
+#include <CommonFunctions.h>
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */

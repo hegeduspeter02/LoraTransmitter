@@ -1,7 +1,7 @@
 #ifndef SA_28_H
 #define SA_28_H
 
-#include <LoraTransmitter.h>
+#include <CommonFunctions.h>
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */

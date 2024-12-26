@@ -11,8 +11,14 @@
 #ifndef BME_280_H
 #define BME_280_H
 
-#include <BME280I2C.h> // predifined library's header file
-#include <LoraTransmitter.h>
+#include <CommonFunctions.h>
+#include <BME280I2C.h> // library's header file
+
+/*****************************************************************/
+/* GLOBAL CONSTS                                                 */
+/*****************************************************************/
+const BME280::TempUnit TEMP_UNIT = BME280::TempUnit_Celsius;
+const BME280::PresUnit PRES_UNIT = BME280::PresUnit_hPa;
 
 /*****************************************************************/
 /* GLOBAL VARIABLES                                              */
@@ -51,8 +57,9 @@ void InitializeBME280();
   /// - Normal: ~1013 hPa
   /// - High: above 1016 hPa
   /// - Low: below 1010 hPa
-void ReadBME280Data(BME280::TempUnit tempUnit,
-                    BME280::PresUnit presUnit,
-                    WeatherData& weatherData);
+void ReadBME280Data(
+  float& temperature,
+  float& humidity,
+  float& pressure);
 
 #endif // BME_280_H

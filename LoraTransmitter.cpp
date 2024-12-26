@@ -1,4 +1,4 @@
-#include <stdint.h>
+
 #include <LoraTransmitter.h>
 
 /****************************************************************/
@@ -16,28 +16,41 @@ void InitializeADC(uint8_t resolution, uint8_t pin, adc_attenuation_t attenuatio
   analogSetPinAttenuation(pin, attenuation);
 }
 
-/****************************************************************/
-uint16_t ReadAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t pin)
+String serializeWeatherData(const WeatherData& weatherData)
 {
-  uint32_t sensorOutputVoltageSummed = 0;
+  JsonDocument doc;
+  JsonArray data = doc["data"].to<JsonArray>();
+  data.add(weatherData.temperature);
+  data.add(round(weatherData.humidity * 100.0f) / 100.0f);
+  data.add(round(weatherData.pressure * 100.0f) / 100.0f);
+  data.add(weatherData.uvIndex);
+  data.add(weatherData.soilMoisture);
+  data.add(weatherData.rainPercent);
 
-  for (int i = 0; i < number_of_samples; i++) {
-    sensorOutputVoltageSummed += analogReadMilliVolts(pin);
-  }
+  String serializedWeatherData;
+  serializeJson(doc, serializedWeatherData);
 
-  return (uint16_t)(sensorOutputVoltageSummed / number_of_samples);
+  return serializedWeatherData;
 }
 
 /****************************************************************/
-uint16_t ReMapOutputVoltageRange(uint16_t& sensorOutput,
-                             const uint16_t fromLowVoltage, const uint16_t fromHighVoltage,
-                             const uint16_t toLow, const uint16_t toHigh)
+void sendMessage(const String& string)
 {
-  return (uint16_t) map(sensorOutput, fromLowVoltage, fromHighVoltage, toLow, toHigh); 
+  // set radio to idle mode, set up packet, use explicit header mode
+  LoRa.beginPacket();
+
+  // write data to the packet
+  LoRa.print(string);     
+
+  // finish packet and wait for transmission to complete
+  LoRa.endPacket();
+
+  Serial.println("Packet was sent.");
+  delay(100); // Small delay to prevent buffer overflow
 }
 
 /****************************************************************/
-void PrintResultsToSerialMonitor(WeatherData& weatherData)
+void PrintMeasureToSerialMonitor(WeatherData& weatherData)
 {
   Serial.printf("Temp: %.2f\xB0C\n"
                 "Humidity: %.2f%% RH\n"

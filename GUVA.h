@@ -1,7 +1,7 @@
 #ifndef GUVA_H
 #define GUVA_H
 
-#include <LoraTransmitter.h>
+#include <CommonFunctions.h>
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */

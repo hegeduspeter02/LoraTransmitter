@@ -37,9 +37,9 @@ void InitializeBME280()
 }
 
 /****************************************************************/
-void ReadBME280Data(BME280::TempUnit tempUnit,
-                    BME280::PresUnit presUnit,
-                    WeatherData& weatherData)
+void ReadBME280Data(float& temperature,
+                    float& humidity,
+                    float& pressure)
 {
-   bme.read(weatherData.pressure, weatherData.temperature, weatherData.humidity, tempUnit, presUnit);
+   bme.read(pressure, temperature, humidity, TEMP_UNIT, PRES_UNIT);
 }
