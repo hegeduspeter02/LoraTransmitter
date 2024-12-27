@@ -2,15 +2,21 @@
 #include <LoraTransmitter.h>
 
 /****************************************************************/
-void InitializeSerialCommunication()
+void initializeSerialCommunication()
 {
   Serial.begin(SERIAL_BAUD);
   while(!Serial) {} // wait until the serial port is ready and connected
   delay(1000); // wait for Serial Monitor to initialize
 }
 
+void configureLoraTransmitter()
+{
+  LoRa.setPins(RFM95_CS0_PIN, RFM95_RESET_PIN, RFM95_DIO0_PIN);
+  LoRa.setTxPower(TX_DEFAULT_POWER_OPERATION, PA_OUTPUT_PA_BOOST_PIN)
+}
+
 /****************************************************************/
-void InitializeADC(uint8_t resolution, uint8_t pin, adc_attenuation_t attenuation)
+void initializeADC(uint8_t resolution, uint8_t pin, adc_attenuation_t attenuation)
 {
   analogReadResolution(resolution);
   analogSetPinAttenuation(pin, attenuation);
@@ -50,7 +56,7 @@ void sendMessage(const String& string)
 }
 
 /****************************************************************/
-void PrintMeasureToSerialMonitor(WeatherData& weatherData)
+void printMeasureToSerialMonitor(WeatherData& weatherData)
 {
   Serial.printf("Temp: %.2f\xB0C\n"
                 "Humidity: %.2f%% RH\n"

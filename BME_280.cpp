@@ -26,7 +26,7 @@ BME280I2C::Settings bmeSettings(
 BME280I2C bme(bmeSettings);
 
 /****************************************************************/
-void InitializeBME280()
+void initializeBME280()
 {
   Serial.print("Waiting for BME280 sensor");
   while(!bme.begin()) {
@@ -37,7 +37,7 @@ void InitializeBME280()
 }
 
 /****************************************************************/
-void ReadBME280Data(float& temperature,
+void readBME280Data(float& temperature,
                     float& humidity,
                     float& pressure)
 {

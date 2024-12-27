@@ -32,7 +32,7 @@ extern BME280I2C bme;
 
   ///////////////////////////////////////////////////////////////
   /// Wait for initializing BME280's settings 
-void InitializeBME280();
+void initializeBME280();
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */
@@ -57,7 +57,7 @@ void InitializeBME280();
   /// - Normal: ~1013 hPa
   /// - High: above 1016 hPa
   /// - Low: below 1010 hPa
-void ReadBME280Data(
+void readBME280Data(
   float& temperature,
   float& humidity,
   float& pressure);

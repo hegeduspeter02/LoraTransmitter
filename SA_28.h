@@ -18,6 +18,6 @@
   ///////////////////////////////////////////////////////////////
   /// Get the soil moisture percent based on the SA_28's
   /// output voltage.
-void determineRainStatus(uint16_t& rainPercent);
+void determineRainStatus(uint8_t& rainPercent);
 
 #endif // SA_28_H

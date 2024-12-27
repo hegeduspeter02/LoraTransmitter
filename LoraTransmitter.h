@@ -29,6 +29,15 @@
 #define uS_TO_S_FACTOR 1000000 // us
 #define RFM95_SEND_RATE 5 // s
 
+/* Transmitter's RF power amplifiers' predifined operation modes, set by the setTxPower function.
+- For the high and default power setting, the PA_OUTPUT_PA_BOOST_PIN should be used (between +2 and +20 dBm).
+- For the medium and low power setting, the PA_OUTPUT_RFO_PIN should be used (between 0 and +14 dBm), for lower current consumption.
+*/
+#define TX_HIGH_POWER_OPERATION 20 // dBm
+#define TX_DEFAULT_POWER_OPERATION 17 // dBm
+#define TX_MEDIUM_POWER_OPERATION 13 // dBm
+#define TX_LOW_POWER_OPERATION 7 // dBm
+
 #ifndef DEBUG_MODE
 #define DEBUG_MODE 1
 #endif
@@ -41,8 +50,8 @@ struct WeatherData {
   float humidity;
   float pressure;
   uint8_t uvIndex;
-  uint16_t soilMoisture;
-  uint16_t rainPercent;
+  uint8_t soilMoisture;
+  uint8_t rainPercent;
 };
 
 /*****************************************************************/
@@ -52,17 +61,21 @@ struct WeatherData {
   ///////////////////////////////////////////////////////////////
   /// Start the Serial communication at SERIAL_BAUD rate.
   /// Wait for the serial port and the Monitor to be ready.
-void InitializeSerialCommunication();
+void initializeSerialCommunication();
+
+  ///////////////////////////////////////////////////////////////
+  /// Set the configurable parameters of the RFM95 module.
+void configureLoraTransmitter();
 
   ///////////////////////////////////////////////////////////////
   /// Set the resulution of the ADC and attenuation for a given pin.
-void InitializeADC(
+void initializeADC(
   uint8_t resolution,
   uint8_t pin,
   adc_attenuation_t attenuation);
 
   ///////////////////////////////////////////////////////////////
-  /// Initialize a packet, put the data in it, then send it.
+  /// Create a JSON string from the weatherData struct.
 String serializeWeatherData(const WeatherData& weatherData);
 
   ///////////////////////////////////////////////////////////////
@@ -71,6 +84,6 @@ void sendMessage(const String& string);
 
   ///////////////////////////////////////////////////////////////
   /// Prints the weatherData to the Serial Monitor.
-void PrintMeasureToSerialMonitor(WeatherData& weatherData);
+void printMeasureToSerialMonitor(WeatherData& weatherData);
 
 #endif // main_H

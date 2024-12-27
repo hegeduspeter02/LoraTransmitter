@@ -1,7 +1,7 @@
 #include <CommonFunctions.h>
 
 /****************************************************************/
-uint16_t ReadAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t pin)
+uint16_t readAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t pin)
 {
   uint32_t sensorOutputVoltageSummed = 0;
 
@@ -13,7 +13,7 @@ uint16_t ReadAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t
 }
 
 /****************************************************************/
-uint16_t ReMapOutputVoltageRange(uint16_t& sensorOutput,
+uint16_t reMapOutputVoltageRange(uint16_t& sensorOutput,
                              const uint16_t fromLowVoltage, const uint16_t fromHighVoltage,
                              const uint16_t toLow, const uint16_t toHigh)
 {

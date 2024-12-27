@@ -3,7 +3,7 @@
 /****************************************************************/
 uint8_t convertVoltageToUVIndex(uint16_t& guvaVoltage)
 {
-  uint16_t voltageToConvert = ReMapOutputVoltageRange(guvaVoltage, GUVA_MEASURED_MIN_VOLTAGE,
+  uint16_t voltageToConvert = reMapOutputVoltageRange(guvaVoltage, GUVA_MEASURED_MIN_VOLTAGE,
                           GUVA_MEASURED_MAX_VOLTAGE, GUVA_TARGET_MIN_VOLTAGE,
                           GUVA_TARGET_MAX_VOLTAGE);
 
@@ -23,6 +23,6 @@ uint8_t convertVoltageToUVIndex(uint16_t& guvaVoltage)
 /****************************************************************/
 void determineUVIndex(uint8_t& uvIndex)
 {
-  uint16_t guvaVoltage = ReadAnalogSensorVoltage(GUVA_NO_OF_SAMPLES, GUVA_PIN);
+  uint16_t guvaVoltage = readAnalogSensorVoltage(GUVA_NO_OF_SAMPLES, GUVA_PIN);
   uvIndex = convertVoltageToUVIndex(guvaVoltage);
 }

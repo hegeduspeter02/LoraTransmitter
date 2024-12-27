@@ -18,6 +18,6 @@
   ///////////////////////////////////////////////////////////////
   /// Get the soil moisture percent based on the SOILCAP's
   /// output voltage.
-void determineSoilMoisture(uint16_t& soilMoisture);
+void determineSoilMoisture(uint8_t& soilMoisture);
 
 #endif // SOILCAP_H
