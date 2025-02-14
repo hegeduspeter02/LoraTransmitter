@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <SA_28.h>
 
-/****************************************************************/
 void determineRainStatus(uint8_t& rainPercent)
 {
   uint16_t sa28Voltage = readAnalogSensorVoltage(SA_28_NO_OF_SAMPLES, SA_28_PIN);

@@ -6,7 +6,7 @@
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
 /*****************************************************************/
-#define SOILCAP_PIN 36
+#define SOILCAP_PIN 32
 #define SOILCAP_NO_OF_SAMPLES 1000
 #define SOILCAP_MEASURED_MIN_VOLTAGE 1163
 #define SOILCAP_MEASURED_MAX_VOLTAGE 2643

@@ -11,6 +11,8 @@ void setup()
   SPIClass spi;
   spi.begin(SPI_SCLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SPI_CS0_PIN); // set SPI pins
 
+  configureGPIO();
+
   configureLoraTransmitter();
 
   initializeBME280();
@@ -33,11 +35,11 @@ void loop()
   determineRainStatus(weatherData.rainPercent);
 
   #if DEBUG_MODE
-    printMeasureToSerialMonitor(weatherData);
+    printWeatherDataToSerialMonitor(weatherData);
   #endif
 
-  String serializedWeatherData = serializeWeatherData(weatherData);
-  sendMessage(serializedWeatherData);
+  String payload = encodeWeatherData(weatherData);
+  sendMessage(payload);
 
   // enable sleep wakeup using a dedicated timer at RFM95_SEND_RATE
   esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR); 

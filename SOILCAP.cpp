@@ -1,6 +1,5 @@
 #include <SOILCAP.h>
 
-/****************************************************************/
 void determineSoilMoisture(uint8_t& soilMoisture)
 {
   uint16_t soilCapVoltage = readAnalogSensorVoltage(SOILCAP_NO_OF_SAMPLES, SOILCAP_PIN);

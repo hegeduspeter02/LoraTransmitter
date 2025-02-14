@@ -6,14 +6,14 @@
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
 /*****************************************************************/
-#define GUVA_PIN 32
+#define GUVA_PIN 35
 #define GUVA_NO_OF_SAMPLES 1000
 #define GUVA_MEASURED_MIN_VOLTAGE 142
 #define GUVA_TARGET_MIN_VOLTAGE 0
 #define GUVA_MEASURED_MAX_VOLTAGE 3129
 #define GUVA_TARGET_MAX_VOLTAGE 1079
 
-// voltage levels in mV, 
+// Voltage levels in mV
 const uint16_t UV_VOLTAGE_UPPER_THRESHOLDS[] = { 50, 27, 318, 408, 503, 606, 696, 795, 881, 976 };
 
 /*****************************************************************/

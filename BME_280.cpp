@@ -22,10 +22,8 @@ BME280I2C::Settings bmeSettings(
   BME280I2C::SpiEnable_False // disable SPI mode
 );
 
-/****************************************************************/
 BME280I2C bme(bmeSettings);
 
-/****************************************************************/
 void initializeBME280()
 {
   Serial.print("Waiting for BME280 sensor");
@@ -36,7 +34,6 @@ void initializeBME280()
   Serial.println();
 }
 
-/****************************************************************/
 void readBME280Data(float& temperature,
                     float& humidity,
                     float& pressure)

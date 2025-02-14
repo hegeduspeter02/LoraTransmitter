@@ -1,6 +1,5 @@
 #include <GUVA.h>
 
-/****************************************************************/
 uint8_t convertVoltageToUVIndex(uint16_t& guvaVoltage)
 {
   uint16_t voltageToConvert = reMapOutputVoltageRange(guvaVoltage, GUVA_MEASURED_MIN_VOLTAGE,
@@ -20,7 +19,6 @@ uint8_t convertVoltageToUVIndex(uint16_t& guvaVoltage)
   else return 10;
 }
 
-/****************************************************************/
 void determineUVIndex(uint8_t& uvIndex)
 {
   uint16_t guvaVoltage = readAnalogSensorVoltage(GUVA_NO_OF_SAMPLES, GUVA_PIN);
