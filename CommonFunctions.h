@@ -18,7 +18,8 @@
   /// number_of_samples and store it in the result param.
 uint16_t readAnalogSensorVoltage(
   const uint16_t number_of_samples,
-  const uint8_t pin);
+  const uint8_t pin
+);
 
   ///////////////////////////////////////////////////////////////
   /// Re-map the ReadAnalogSensorData's output to a number
@@ -28,7 +29,7 @@ uint16_t reMapOutputVoltageRange(
   const uint16_t fromLowVoltage,
   const uint16_t fromHighVoltage,
   const uint16_t toLow,
-  const uint16_t toHigh);
-
+  const uint16_t toHigh
+);
 
 #endif // COMMONFUNCTIONS_H

@@ -1,17 +1,44 @@
-#include "esp32-hal-gpio.h"
-#include "SA_28.h"
-#include "SOILCAP.h"
-#include "GUVA.h"
-#include "hal/gpio_types.h"
-#include "driver/gpio.h"
-
 #include <LoraTransmitter.h>
+
+adc_oneshot_unit_handle_t adc1_handle;
+adc_oneshot_unit_handle_t adc2_handle;
+
+adc_oneshot_chan_cfg_t adc_config = {
+  .atten = ADC_ATTEN_DB_12,
+  .bitwidth = ADC_BITWIDTH_12,
+};
 
 void initializeSerialCommunication()
 {
   Serial.begin(SERIAL_BAUD);
   while(!Serial) {} // wait until the serial port is ready and connected
   delay(1000); // wait for Serial Monitor to initialize
+}
+
+void initializeADCs()
+{
+  adc_oneshot_unit_init_cfg_t adc1_init_config = {
+    .unit_id = ADC_UNIT_1,
+    .ulp_mode = ADC_ULP_MODE_DISABLE,
+  };
+
+  adc_oneshot_unit_init_cfg_t adc2_init_config = {
+    .unit_id = ADC_UNIT_2,
+    .ulp_mode = ADC_ULP_MODE_DISABLE,
+  };
+
+  ESP_ERROR_CHECK(adc_oneshot_new_unit(&adc1_init_config, &adc1_handle));
+  ESP_ERROR_CHECK(adc_oneshot_new_unit(&adc2_init_config, &adc2_handle));
+}
+
+void configureADC(adc_unit_t unit_id, adc_channel_t channel)
+{
+  if (unit_id == ADC_UNIT_1) {
+    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, channel, &adc_config));
+  }
+  else {
+    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc2_handle, channel, &adc_config));
+  }
 }
 
 void configureGPIO()
@@ -28,12 +55,6 @@ void configureLoraTransmitter()
 {
   LoRa.setPins(SPI_CS0_PIN, RFM95_RESET_PIN, RFM95_DIO0_PIN);
   LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
-}
-
-void initializeADC(uint8_t resolution, uint8_t pin, adc_attenuation_t attenuation)
-{
-  analogReadResolution(resolution);
-  analogSetPinAttenuation(pin, attenuation);
 }
 
 CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData& weatherData)

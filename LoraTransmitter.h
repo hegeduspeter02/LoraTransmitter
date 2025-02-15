@@ -14,6 +14,8 @@
 #include <SA_28.h>
 #include <ArduinoJson.h>
 #include <CayenneLPP.h>
+#include "hal/adc_types.h"
+#include "esp_adc/adc_oneshot.h"
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
@@ -65,6 +67,8 @@
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- END       */
 /*****************************************************************/
+extern adc_oneshot_unit_handle_t adc1_handle;
+extern adc_oneshot_unit_handle_t adc2_handle;
 
 /*****************************************************************/
 /* STRUCTURES                                                    */
@@ -88,7 +92,11 @@ struct WeatherData {
 void initializeSerialCommunication();
 
   ///////////////////////////////////////////////////////////////
-  /// Configure the ESP32's pins.
+  /// Initialize the ADC1 and ADC2 unit.
+void initializeADCs();
+
+  ///////////////////////////////////////////////////////////////
+  /// Configure the ESP32's IO pins.
 void configureGPIO();
 
   ///////////////////////////////////////////////////////////////
@@ -96,11 +104,11 @@ void configureGPIO();
 void configureLoraTransmitter();
 
   ///////////////////////////////////////////////////////////////
-  /// Set the resulution of the ADC and attenuation for a given pin.
-void initializeADC(
-  uint8_t resolution,
-  uint8_t pin,
-  adc_attenuation_t attenuation);
+  /// Configure the selected ADC unit for a channel (pin).
+void configureADC(
+  adc_unit_t unit_id,
+  adc_channel_t channel
+);
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */

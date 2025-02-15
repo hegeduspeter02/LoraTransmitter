@@ -60,6 +60,7 @@ void initializeBME280();
 void readBME280Data(
   float& temperature,
   float& humidity,
-  float& pressure);
+  float& pressure
+);
 
 #endif // BME_280_H

@@ -16,9 +16,12 @@ void setup()
   configureLoraTransmitter();
 
   initializeBME280();
-  initializeADC(12, GUVA_PIN, ADC_11db); // set the attenuation to 11 dB
-                                         // able to measure between 100 mV ~ 3100 mV
-  initializeADC(12, SOILCAP_PIN, ADC_11db);
+
+  initializeADCs();
+  configureADC(ADC_UNIT_1, ADC_CHANNEL_4);
+  configureADC(ADC_UNIT_1, ADC_CHANNEL_5);
+  configureADC(ADC_UNIT_2, ADC_CHANNEL_0);
+  configureADC(ADC_UNIT_2, ADC_CHANNEL_7);
 
   // initialize LoRa library with 868 MHz communication frequency
   if (!LoRa.begin(868E6)) {
