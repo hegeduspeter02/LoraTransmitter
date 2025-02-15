@@ -6,7 +6,7 @@
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
 /*****************************************************************/
-#define GUVA_PIN 35
+#define GUVA_PIN 27
 #define GUVA_NO_OF_SAMPLES 1000
 #define GUVA_MEASURED_MIN_VOLTAGE 142
 #define GUVA_TARGET_MIN_VOLTAGE 0

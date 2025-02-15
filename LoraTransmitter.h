@@ -1,7 +1,6 @@
 #ifndef main_H
 #define main_H
 
-#include "driver/gpio.h"
 #include <stdint.h>
 #include <math.h>
 #include <Ticker.h>
@@ -27,11 +26,14 @@
 
 #define RFM95_RESET_PIN 25
 #define RFM95_DIO0_PIN 26
-
 #define SPI_CS0_PIN 5
 #define SPI_SCLK_PIN 18
 #define SPI_MISO_PIN 19
 #define SPI_MOSI_PIN 23
+#define BAT_VOLTAGE_MEAS_EN_PIN 1
+#define BAT_VOLTAGE_MEAS_PIN 33
+#define HIGH_PWR_MODE_PIN 12
+#define LOW_PWR_MODE_PIN 14
 
 #define uS_TO_S_FACTOR 1000000 // us
 #define RFM95_SEND_RATE 5 // s

@@ -1,3 +1,4 @@
+#include "esp32-hal-gpio.h"
 #include "SA_28.h"
 #include "SOILCAP.h"
 #include "GUVA.h"
@@ -15,15 +16,12 @@ void initializeSerialCommunication()
 
 void configureGPIO()
 {
-  gpio_set_direction((gpio_num_t) RFM95_RESET_PIN, (gpio_mode_t) GPIO_MODE_OUTPUT);
+  pinMode(RFM95_RESET_PIN, OUTPUT);
+  pinMode(RFM95_DIO0_PIN, INPUT);
 
-  gpio_set_direction((gpio_num_t) RFM95_DIO0_PIN, (gpio_mode_t) GPIO_MODE_INPUT);
-  gpio_intr_enable((gpio_num_t) RFM95_DIO0_PIN);
-  gpio_set_intr_type((gpio_num_t) RFM95_DIO0_PIN, (gpio_int_type_t) GPIO_INTR_POSEDGE);
-
-  gpio_set_direction((gpio_num_t) GUVA_PIN, (gpio_mode_t) GPIO_MODE_INPUT);
-  gpio_set_direction((gpio_num_t) SOILCAP_PIN, (gpio_mode_t) GPIO_MODE_INPUT);
-  gpio_set_direction((gpio_num_t) SA_28_PIN, (gpio_mode_t) GPIO_MODE_INPUT);
+  pinMode(GUVA_PIN, INPUT);
+  pinMode(SOILCAP_PIN, INPUT);
+  pinMode(SA_28_PIN, INPUT);
 }
 
 void configureLoraTransmitter()
