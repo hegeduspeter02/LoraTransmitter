@@ -14,8 +14,6 @@
 #include <SA_28.h>
 #include <ArduinoJson.h>
 #include <CayenneLPP.h>
-#include "hal/adc_types.h"
-#include "esp_adc/adc_oneshot.h"
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
@@ -25,6 +23,7 @@
 #endif
 
 #define SERIAL_BAUD 9600 // bps
+#define RFM95_COMM_FREQ 868E6
 
 #define RFM95_RESET_PIN 25
 #define RFM95_DIO0_PIN 26
@@ -67,8 +66,6 @@
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- END       */
 /*****************************************************************/
-extern adc_oneshot_unit_handle_t adc1_handle;
-extern adc_oneshot_unit_handle_t adc2_handle;
 
 /*****************************************************************/
 /* STRUCTURES                                                    */
@@ -102,13 +99,6 @@ void configureGPIO();
   ///////////////////////////////////////////////////////////////
   /// Set the configurable parameters of the RFM95 module.
 void configureLoraTransmitter();
-
-  ///////////////////////////////////////////////////////////////
-  /// Configure the selected ADC unit for a channel (pin).
-void configureADC(
-  adc_unit_t unit_id,
-  adc_channel_t channel
-);
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */

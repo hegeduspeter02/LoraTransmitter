@@ -7,7 +7,7 @@
 /* GLOBAL CONSTS                                                 */
 /*****************************************************************/
 #define SA_28_PIN 4
-#define SA_28_NO_OF_SAMPLES 1000
+#define SA_28_NO_OF_SAMPLES 20
 #define SA_28_MEASURED_MIN_VOLTAGE 998
 #define SA_28_MEASURED_MAX_VOLTAGE 3129
 

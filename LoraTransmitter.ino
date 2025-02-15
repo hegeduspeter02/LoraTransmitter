@@ -18,13 +18,8 @@ void setup()
   initializeBME280();
 
   initializeADCs();
-  configureADC(ADC_UNIT_1, ADC_CHANNEL_4);
-  configureADC(ADC_UNIT_1, ADC_CHANNEL_5);
-  configureADC(ADC_UNIT_2, ADC_CHANNEL_0);
-  configureADC(ADC_UNIT_2, ADC_CHANNEL_7);
 
-  // initialize LoRa library with 868 MHz communication frequency
-  if (!LoRa.begin(868E6)) {
+  if (!LoRa.begin(RFM95_COMM_FREQ)) {
     Serial.println("Starting LoRa failed!");
     while (1);
   }

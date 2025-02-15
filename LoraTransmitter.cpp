@@ -1,12 +1,5 @@
+#include "esp32-hal-adc.h"
 #include <LoraTransmitter.h>
-
-adc_oneshot_unit_handle_t adc1_handle;
-adc_oneshot_unit_handle_t adc2_handle;
-
-adc_oneshot_chan_cfg_t adc_config = {
-  .atten = ADC_ATTEN_DB_12,
-  .bitwidth = ADC_BITWIDTH_12,
-};
 
 void initializeSerialCommunication()
 {
@@ -17,28 +10,7 @@ void initializeSerialCommunication()
 
 void initializeADCs()
 {
-  adc_oneshot_unit_init_cfg_t adc1_init_config = {
-    .unit_id = ADC_UNIT_1,
-    .ulp_mode = ADC_ULP_MODE_DISABLE,
-  };
-
-  adc_oneshot_unit_init_cfg_t adc2_init_config = {
-    .unit_id = ADC_UNIT_2,
-    .ulp_mode = ADC_ULP_MODE_DISABLE,
-  };
-
-  ESP_ERROR_CHECK(adc_oneshot_new_unit(&adc1_init_config, &adc1_handle));
-  ESP_ERROR_CHECK(adc_oneshot_new_unit(&adc2_init_config, &adc2_handle));
-}
-
-void configureADC(adc_unit_t unit_id, adc_channel_t channel)
-{
-  if (unit_id == ADC_UNIT_1) {
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, channel, &adc_config));
-  }
-  else {
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc2_handle, channel, &adc_config));
-  }
+  analogSetAttenuation(ADC_11db);
 }
 
 void configureGPIO()
@@ -100,11 +72,9 @@ void sendMessage(const String& payload)
 
   if(readyToTransmit)
   {
-    // write data to the packet
-    LoRa.print(payload);
+    LoRa.print(payload); // write data to the packet
 
-    // finish packet and wait for transmission to complete
-    LoRa.endPacket();
+    LoRa.endPacket(); // finish packet and wait for transmission to complete
 
     Serial.println("Packet was sent.");
     delay(100); // Small delay to prevent buffer overflow
