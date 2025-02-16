@@ -22,6 +22,5 @@ uint8_t convertVoltageToUVIndex(uint16_t& guvaVoltage)
 void determineUVIndex(uint8_t& uvIndex)
 {
   uint16_t guvaVoltage = readAnalogSensorVoltage(GUVA_NO_OF_SAMPLES, GUVA_PIN);
-  Serial.printf("min voltage: %d\n", guvaVoltage);
   uvIndex = convertVoltageToUVIndex(guvaVoltage);
 }

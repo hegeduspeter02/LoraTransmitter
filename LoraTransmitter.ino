@@ -17,12 +17,12 @@ void setup()
 
   initializeBME280();
 
-  initializeADCs();
-
   if (!LoRa.begin(RFM95_COMM_FREQ)) {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
+
+  esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR); 
 }
 
 void loop()
@@ -38,9 +38,6 @@ void loop()
 
   String payload = encodeWeatherData(weatherData);
   sendMessage(payload);
-
-  // enable sleep wakeup using a dedicated timer at RFM95_SEND_RATE
-  esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR); 
 
   LoRa.sleep(); // put the RFM95 in sleep mode
   esp_light_sleep_start();

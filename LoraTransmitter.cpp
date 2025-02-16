@@ -8,11 +8,6 @@ void initializeSerialCommunication()
   delay(1000); // wait for Serial Monitor to initialize
 }
 
-void initializeADCs()
-{
-  analogSetAttenuation(ADC_11db);
-}
-
 void configureGPIO()
 {
   pinMode(RFM95_RESET_PIN, OUTPUT);

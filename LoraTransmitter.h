@@ -89,10 +89,6 @@ struct WeatherData {
 void initializeSerialCommunication();
 
   ///////////////////////////////////////////////////////////////
-  /// Initialize the ADC1 and ADC2 unit.
-void initializeADCs();
-
-  ///////////////////////////////////////////////////////////////
   /// Configure the ESP32's IO pins.
 void configureGPIO();
 
