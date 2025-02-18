@@ -5,7 +5,6 @@ void initializeSerialCommunication()
 {
   Serial.begin(SERIAL_BAUD);
   while(!Serial) {} // wait until the serial port is ready and connected
-  delay(1000); // wait for Serial Monitor to initialize
 }
 
 void configureGPIO()
@@ -72,7 +71,7 @@ void sendMessage(const String& payload)
     LoRa.endPacket(); // finish packet and wait for transmission to complete
 
     Serial.println("Packet was sent.");
-    delay(100); // Small delay to prevent buffer overflow
+    Serial.flush();
   }
 }
 
@@ -91,4 +90,5 @@ void printWeatherDataToSerialMonitor(WeatherData& weatherData)
                 weatherData.uvIndex,
                 weatherData.soilMoisture,
                 weatherData.rainPercent);
+  Serial.flush();
 }

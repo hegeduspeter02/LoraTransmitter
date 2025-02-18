@@ -26,12 +26,10 @@ BME280I2C bme(bmeSettings);
 
 void initializeBME280()
 {
-  Serial.print("Waiting for BME280 sensor");
-  while(!bme.begin()) {
-    Serial.print(".");
-    delay(1000);
+  if(!bme.begin()) {
+    Serial.println("Starting BME280 failed!");
+    while(1);
   }
-  Serial.println();
 }
 
 void readBME280Data(float& temperature,
