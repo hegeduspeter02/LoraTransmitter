@@ -24,6 +24,9 @@
 
 #define SERIAL_BAUD 9600 // bps
 #define RFM95_COMM_FREQ 868E6
+#define uS_TO_S_FACTOR 1000000 // us
+#define RFM95_SEND_RATE 5 // s
+#define PAYLOAD_SIZE 40 // bytes
 
 #define RFM95_RESET_PIN 25
 #define RFM95_DIO0_PIN 26
@@ -36,10 +39,6 @@
 #define HIGH_PWR_MODE_PIN 12
 #define LOW_PWR_MODE_PIN 14
 
-#define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 5 // s
-
-#define MAX_PAYLOAD_SIZE 51 // bytes
 #define BME_280_SENSOR_IDENTIFIER 1
 #define UV_SENSOR_IDENTIFIER 2
 #define SOIL_MOISTURE_SENSOR_IDENTIFIER 3

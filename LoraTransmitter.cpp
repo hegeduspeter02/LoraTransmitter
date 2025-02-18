@@ -26,7 +26,7 @@ void configureLoraTransmitter()
 
 CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData& weatherData)
 {
-  CayenneLPP lpp(MAX_PAYLOAD_SIZE);
+  CayenneLPP lpp(PAYLOAD_SIZE);
   lpp.reset();
 
   lpp.addTemperature(BME_280_SENSOR_IDENTIFIER, weatherData.temperature);
