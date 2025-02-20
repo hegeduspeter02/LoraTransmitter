@@ -66,11 +66,7 @@ void sendMessage(const String& payload)
   if(readyToTransmit)
   {
     LoRa.print(payload); // write data to the packet
-
     LoRa.endPacket(); // finish packet and wait for transmission to complete
-
-    Serial.println("Packet was sent.");
-    Serial.flush();
   }
 }
 
