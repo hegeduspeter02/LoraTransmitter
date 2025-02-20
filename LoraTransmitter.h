@@ -16,7 +16,7 @@
 #define DEBUG_MODE 1
 #endif
 
-#define SERIAL_BAUD 9600 // bps
+#define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
 #define RFM95_SEND_RATE 10 // s
