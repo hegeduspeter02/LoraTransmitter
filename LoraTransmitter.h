@@ -1,18 +1,12 @@
 #ifndef main_H
 #define main_H
 
-#include <stdint.h>
-#include <math.h>
-#include <Ticker.h>
-#include <Wire.h>
 #include <Arduino.h>
 #include <LoRa.h>
-#include <esp_sleep.h>
 #include <BME_280.h>
 #include <GUVA.h>
 #include <SOILCAP.h>
 #include <SA_28.h>
-#include <ArduinoJson.h>
 #include <CayenneLPP.h>
 
 /*****************************************************************/
@@ -25,7 +19,7 @@
 #define SERIAL_BAUD 9600 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 5 // s
+#define RFM95_SEND_RATE 10 // s
 #define PAYLOAD_SIZE 40 // bytes
 
 #define RFM95_RESET_PIN 25

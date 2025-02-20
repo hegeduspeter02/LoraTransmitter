@@ -1,4 +1,6 @@
 #include <LoraTransmitter.h>
+#include <Wire.h>
+#include <esp_sleep.h>
 
 WeatherData weatherData;
 SPIClass spi;
