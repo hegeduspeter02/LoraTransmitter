@@ -9,7 +9,7 @@ void setup()
 {
   initializeSerialCommunication();
   
-  setCpuFrequencyMhz(80) // MHz
+  setCpuFrequencyMhz(80); // MHz
 
   Wire.begin(); // set the SDA and SCK pins on the ESP
 
