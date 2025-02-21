@@ -35,12 +35,12 @@ void loop()
   determineSoilMoisture(weatherData.soilMoisture);
   determineRainStatus(weatherData.rainPercent);
 
+  String payload = encodeWeatherData(weatherData);
+  sendMessage(payload);
+
   #if DEBUG_MODE
     printWeatherDataToSerialMonitor(weatherData);
   #endif
-
-  String payload = encodeWeatherData(weatherData);
-  sendMessage(payload);
 
   endLibraries();
 
