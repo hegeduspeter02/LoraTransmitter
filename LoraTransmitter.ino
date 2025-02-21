@@ -1,9 +1,7 @@
 #include <LoraTransmitter.h>
-#include <Wire.h>
 #include <esp_sleep.h>
 
 WeatherData weatherData;
-SPIClass spi;
 
 void setup()
 {
@@ -13,9 +11,10 @@ void setup()
 
   Wire.begin(); // set the SDA and SCK pins on the ESP
 
-  spi.begin(SPI_SCLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SPI_CS0_PIN); // set SPI pins
-
   configureGPIO();
+
+  SPI.begin(SPI_SCLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SPI_CS0_PIN); // set SPI pins
+  LoRa.setSPI(SPI);
 
   configureLoraTransmitter();
 
@@ -43,9 +42,7 @@ void loop()
   String payload = encodeWeatherData(weatherData);
   sendMessage(payload);
 
-  LoRa.end(); // put the RFM95 in sleep mode & disable spi bus
-  Serial.end();
-  spi.end();
+  endLibraries();
 
   esp_deep_sleep_start();
 }

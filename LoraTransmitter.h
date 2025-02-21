@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <LoRa.h>
+#include <Wire.h>
 #include <BME_280.h>
 #include <GUVA.h>
 #include <SOILCAP.h>
@@ -41,8 +42,13 @@
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- START     */
 /*****************************************************************/
-// For the high and default power setting, the PA_OUTPUT_PA_BOOST_PIN should be used (between +2 and +20 dBm).
-// For the low power setting, the PA_OUTPUT_RFO_PIN should be used (between 0 and +14 dBm), for lower current consumption.
+/*
+  For the high and medium power rf amplifier setting,
+  the PA_OUTPUT_PA_BOOST_PIN needs to be used (between +2 and +20 dBm).
+
+  For the low power rf amplifier setting, the PA_OUTPUT_RFO_PIN
+  should be used (between 0 and +14 dBm), for lower current consumption.
+*/
 #define HIGH_POWER_RF_AMPLIFIER 20 // dBm
 #define MEDIUM_POWER_RF_AMPLIFIER 17 // dBm
 #define LOW_POWER_RF_AMPLIFIER 7 // dBm
@@ -93,8 +99,12 @@ void configureLoraTransmitter();
 /* WORKER FUNCTIONS                                              */
 /*****************************************************************/
 
+  ///////////////////////////////////////////////////////////////
+  /// Create a Cayenne Low Power Payload, containing the measured weatherData.
 CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData& weatherData);
 
+  ///////////////////////////////////////////////////////////////
+  /// Encode the Cayenne Low Power Payload's byte array into a hexadecimal string.
 String convertLowPowerPayloadToHexadecimalString(CayenneLPP& lpp);
 
   ///////////////////////////////////////////////////////////////
@@ -108,5 +118,9 @@ void sendMessage(const String& payload);
   ///////////////////////////////////////////////////////////////
   /// Prints the weatherData to the Serial Monitor.
 void printWeatherDataToSerialMonitor(WeatherData& weatherData);
+
+  ///////////////////////////////////////////////////////////////
+  /// Stop the used libraries.
+void endLibraries();
 
 #endif // main_H

@@ -87,3 +87,10 @@ void printWeatherDataToSerialMonitor(WeatherData& weatherData)
                 weatherData.rainPercent);
   Serial.flush();
 }
+
+void endLibraries()
+{
+  LoRa.end(); // put the RFM95 in sleep mode & disable spi bus
+  Wire.end();
+  Serial.end();
+}
