@@ -85,7 +85,7 @@ void printWeatherDataToSerialMonitor(WeatherData& weatherData)
                 weatherData.uvIndex,
                 weatherData.soilMoisture,
                 weatherData.rainPercent);
-  delay(100);
+  delay(100); // delay to prevent buffer overflow
 }
 
 void endLibraries()
