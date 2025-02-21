@@ -85,7 +85,6 @@ void printWeatherDataToSerialMonitor(WeatherData& weatherData)
                 weatherData.uvIndex,
                 weatherData.soilMoisture,
                 weatherData.rainPercent);
-  Serial.flush();
 }
 
 void endLibraries()
