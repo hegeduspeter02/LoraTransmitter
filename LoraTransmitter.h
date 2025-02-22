@@ -2,8 +2,8 @@
 #define main_H
 
 #include <Arduino.h>
-#include <LoRa.h>
 #include <Wire.h>
+#include <LoRa.h>
 #include <BME_280.h>
 #include <GUVA.h>
 #include <SOILCAP.h>

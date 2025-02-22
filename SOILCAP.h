@@ -8,8 +8,8 @@
 /*****************************************************************/
 #define SOILCAP_PIN 32
 #define SOILCAP_NO_OF_SAMPLES 20
-#define SOILCAP_MEASURED_MIN_VOLTAGE 1163
-#define SOILCAP_MEASURED_MAX_VOLTAGE 2643
+#define SOILCAP_MEASURED_MIN_VOLTAGE 1115
+#define SOILCAP_MEASURED_MAX_VOLTAGE 2630
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */
