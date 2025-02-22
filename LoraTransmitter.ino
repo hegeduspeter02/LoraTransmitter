@@ -6,7 +6,7 @@ WeatherData weatherData;
 void setup()
 {
   initializeSerialCommunication();
-  
+
   setCpuFrequencyMhz(80); // MHz
 
   Wire.begin(); // set the SDA and SCK pins on the ESP
@@ -20,12 +20,13 @@ void setup()
 
   initializeBME280();
 
-  if (!LoRa.begin(RFM95_COMM_FREQ)) {
+  if (!LoRa.begin(RFM95_COMM_FREQ))
+  {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
 
-  esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR); 
+  esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR);
 }
 
 void loop()
@@ -38,9 +39,9 @@ void loop()
   String payload = encodeWeatherData(weatherData);
   sendMessage(payload);
 
-  #if DEBUG_MODE
-    printWeatherDataToSerialMonitor(weatherData);
-  #endif
+#if DEBUG_MODE
+  printWeatherDataToSerialMonitor(weatherData);
+#endif
 
   endLibraries();
 

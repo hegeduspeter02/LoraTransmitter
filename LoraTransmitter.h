@@ -20,8 +20,8 @@
 #define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 60 // s
-#define PAYLOAD_SIZE 40 // bytes
+#define RFM95_SEND_RATE 60     // s
+#define PAYLOAD_SIZE 40        // bytes
 
 #define RFM95_RESET_PIN 25
 #define RFM95_DIO0_PIN 26
@@ -49,9 +49,9 @@
   For the low power rf amplifier setting, the PA_OUTPUT_RFO_PIN
   should be used (between 0 and +14 dBm), for lower current consumption.
 */
-#define HIGH_POWER_RF_AMPLIFIER 20 // dBm
+#define HIGH_POWER_RF_AMPLIFIER 20   // dBm
 #define MEDIUM_POWER_RF_AMPLIFIER 17 // dBm
-#define LOW_POWER_RF_AMPLIFIER 7 // dBm
+#define LOW_POWER_RF_AMPLIFIER 7     // dBm
 
 #define HIGH_POWER_SPREADING_FACTOR 12
 #define MEDIUM_POWER_SPREADING_FACTOR 10
@@ -60,7 +60,7 @@
 #define HIGH_POWER_SIGNAL_BANDWIDTH 7.8E3
 #define MEDIUM_POWER_SIGNAL_BANDWIDTH 125E3
 
-#define HIGH_POWER_CODING_RATE_DENOMINATOR 8 // 4/8
+#define HIGH_POWER_CODING_RATE_DENOMINATOR 8   // 4/8
 #define MEDIUM_POWER_CODING_RATE_DENOMINATOR 5 // 4/5
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- END       */
@@ -69,7 +69,8 @@
 /*****************************************************************/
 /* STRUCTURES                                                    */
 /*****************************************************************/
-struct WeatherData {
+struct WeatherData
+{
   float temperature;
   float humidity;
   float pressure;
@@ -82,45 +83,45 @@ struct WeatherData {
 /* INIT FUNCTIONS                                                */
 /*****************************************************************/
 
-  ///////////////////////////////////////////////////////////////
-  /// Start the Serial communication at SERIAL_BAUD rate.
-  /// Wait for the serial port and the Monitor to be ready.
+///////////////////////////////////////////////////////////////
+/// Start the Serial communication at SERIAL_BAUD rate.
+/// Wait for the serial port and the Monitor to be ready.
 void initializeSerialCommunication();
 
-  ///////////////////////////////////////////////////////////////
-  /// Configure the ESP32's IO pins.
+///////////////////////////////////////////////////////////////
+/// Configure the ESP32's IO pins.
 void configureGPIO();
 
-  ///////////////////////////////////////////////////////////////
-  /// Set the configurable parameters of the RFM95 module.
+///////////////////////////////////////////////////////////////
+/// Set the configurable parameters of the RFM95 module.
 void configureLoraTransmitter();
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */
 /*****************************************************************/
 
-  ///////////////////////////////////////////////////////////////
-  /// Create a Cayenne Low Power Payload, containing the measured weatherData.
-CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData& weatherData);
+///////////////////////////////////////////////////////////////
+/// Create a Cayenne Low Power Payload, containing the measured weatherData.
+CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData &weatherData);
 
-  ///////////////////////////////////////////////////////////////
-  /// Encode the Cayenne Low Power Payload's byte array into a hexadecimal string.
-String convertLowPowerPayloadToHexadecimalString(CayenneLPP& lpp);
+///////////////////////////////////////////////////////////////
+/// Encode the Cayenne Low Power Payload's byte array into a hexadecimal string.
+String convertLowPowerPayloadToHexadecimalString(CayenneLPP &lpp);
 
-  ///////////////////////////////////////////////////////////////
-  /// Call convertWeatherDataToLowPowerPayload, then convertLowPowerPayloadToHexadecimalString.
-String encodeWeatherData(const WeatherData& weatherData);
+///////////////////////////////////////////////////////////////
+/// Call convertWeatherDataToLowPowerPayload, then convertLowPowerPayloadToHexadecimalString.
+String encodeWeatherData(const WeatherData &weatherData);
 
-  ///////////////////////////////////////////////////////////////
-  /// Initialize a packet, put the data in it, then send it.
-void sendMessage(const String& payload);
+///////////////////////////////////////////////////////////////
+/// Initialize a packet, put the data in it, then send it.
+void sendMessage(const String &payload);
 
-  ///////////////////////////////////////////////////////////////
-  /// Prints the weatherData to the Serial Monitor.
-void printWeatherDataToSerialMonitor(WeatherData& weatherData);
+///////////////////////////////////////////////////////////////
+/// Prints the weatherData to the Serial Monitor.
+void printWeatherDataToSerialMonitor(WeatherData &weatherData);
 
-  ///////////////////////////////////////////////////////////////
-  /// Stop the used libraries.
+///////////////////////////////////////////////////////////////
+/// Stop the used libraries.
 void endLibraries();
 
 #endif // main_H

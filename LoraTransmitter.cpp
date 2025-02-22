@@ -3,7 +3,7 @@
 void initializeSerialCommunication()
 {
   Serial.begin(SERIAL_BAUD);
-  while(!Serial) {} // wait until the serial port is ready and connected
+  while (!Serial){} // wait until the serial port is ready and connected
 }
 
 void configureGPIO()
@@ -22,7 +22,7 @@ void configureLoraTransmitter()
   LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
 }
 
-CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData& weatherData)
+CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData &weatherData)
 {
   CayenneLPP lpp(PAYLOAD_SIZE);
   lpp.reset();
@@ -37,11 +37,12 @@ CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData& weatherData)
   return lpp;
 }
 
-String convertLowPowerPayloadToHexadecimalString(CayenneLPP& lpp)
+String convertLowPowerPayloadToHexadecimalString(CayenneLPP &lpp)
 {
   String lppString;
 
-  for (int i = 0; i < lpp.getSize(); i++) {
+  for (int i = 0; i < lpp.getSize(); i++)
+  {
     char buffer[3];
     sprintf(buffer, "%02X", lpp.getBuffer()[i]); // convert each byte to hex
     lppString += buffer;
@@ -50,7 +51,7 @@ String convertLowPowerPayloadToHexadecimalString(CayenneLPP& lpp)
   return lppString;
 }
 
-String encodeWeatherData(const WeatherData& weatherData)
+String encodeWeatherData(const WeatherData &weatherData)
 {
   CayenneLPP lpp = convertWeatherDataToLowPowerPayload(weatherData);
   String lppString = convertLowPowerPayloadToHexadecimalString(lpp);
@@ -58,19 +59,19 @@ String encodeWeatherData(const WeatherData& weatherData)
   return lppString;
 }
 
-void sendMessage(const String& payload)
+void sendMessage(const String &payload)
 {
   // set radio to idle mode, set up packet, use explicit header mode
   uint8_t readyToTransmit = LoRa.beginPacket();
 
-  if(readyToTransmit)
+  if (readyToTransmit)
   {
     LoRa.print(payload); // write data to the packet
-    LoRa.endPacket(); // finish packet and wait for transmission to complete
+    LoRa.endPacket();    // finish packet and wait for transmission to complete
   }
 }
 
-void printWeatherDataToSerialMonitor(WeatherData& weatherData)
+void printWeatherDataToSerialMonitor(WeatherData &weatherData)
 {
   Serial.printf("Temp: %.2f °C\n"
                 "Humidity: %.2f%% RH\n"
@@ -78,7 +79,7 @@ void printWeatherDataToSerialMonitor(WeatherData& weatherData)
                 "UV index: %d\n"
                 "Soil moisture: %d%%\n"
                 "Rain intensity: %d%%\n"
-                "---------------------------------------------------------\n", 
+                "---------------------------------------------------------\n",
                 weatherData.temperature,
                 weatherData.humidity,
                 weatherData.pressure,

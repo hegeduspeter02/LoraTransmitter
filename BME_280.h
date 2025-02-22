@@ -20,23 +20,22 @@ extern BME280I2C bme;
 /* INIT FUNCTIONS                                                */
 /*****************************************************************/
 
-  ///////////////////////////////////////////////////////////////
-  /// Wait for initializing BME280's settings 
+///////////////////////////////////////////////////////////////
+/// Wait for initializing BME280's settings
 void initializeBME280();
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */
 /*****************************************************************/
 
-  /// Read the BME280's output and store it in weatherData
-  /// Pressure levels in hPa approx. in Hungary
-  /// - Normal: ~1013 hPa
-  /// - High: above 1016 hPa
-  /// - Low: below 1010 hPa
+/// Read the BME280's output and store it in weatherData
+/// Pressure levels in hPa approx. in Hungary
+/// - Normal: ~1013 hPa
+/// - High: above 1016 hPa
+/// - Low: below 1010 hPa
 void readBME280Data(
-  float& temperature,
-  float& humidity,
-  float& pressure
-);
+    float &temperature,
+    float &humidity,
+    float &pressure);
 
 #endif // BME_280_H
