@@ -20,7 +20,7 @@
 #define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 30 // s
+#define RFM95_SEND_RATE 60 // s
 #define PAYLOAD_SIZE 40 // bytes
 
 #define RFM95_RESET_PIN 25
