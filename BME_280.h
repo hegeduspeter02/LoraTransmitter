@@ -28,7 +28,7 @@ void initializeBME280();
 /* WORKER FUNCTIONS                                              */
 /*****************************************************************/
 
-/// Read the BME280's output and store it in weatherData
+/// Read the BME280's output and store it in measureData
 /// Pressure levels in hPa approx. in Hungary
 /// - Normal: ~1013 hPa
 /// - High: above 1016 hPa

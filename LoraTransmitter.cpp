@@ -14,6 +14,7 @@ void configureGPIO()
   pinMode(GUVA_PIN, INPUT);
   pinMode(SOILCAP_PIN, INPUT);
   pinMode(SA_28_PIN, INPUT);
+  gpio_set_pull_mode((gpio_num_t)SA_28_PIN, (gpio_pull_mode_t)GPIO_FLOATING);
 }
 
 void configureLoraTransmitter()
@@ -22,17 +23,18 @@ void configureLoraTransmitter()
   LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
 }
 
-CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData &weatherData)
+CayenneLPP convertMeasureDataToLowPowerPayload(const MeasureData &measureData)
 {
   CayenneLPP lpp(PAYLOAD_SIZE);
   lpp.reset();
 
-  lpp.addTemperature(BME_280_SENSOR_IDENTIFIER, weatherData.temperature);
-  lpp.addRelativeHumidity(BME_280_SENSOR_IDENTIFIER, weatherData.humidity);
-  lpp.addBarometricPressure(BME_280_SENSOR_IDENTIFIER, weatherData.pressure);
-  lpp.addDigitalOutput(UV_SENSOR_IDENTIFIER, weatherData.uvIndex);
-  lpp.addDigitalOutput(SOIL_MOISTURE_SENSOR_IDENTIFIER, weatherData.soilMoisture);
-  lpp.addDigitalOutput(RAIN_SENSOR_IDENTIFIER, weatherData.rainPercent);
+  lpp.addTemperature(BME_280_SENSOR_IDENTIFIER, measureData.temperature);
+  lpp.addRelativeHumidity(BME_280_SENSOR_IDENTIFIER, measureData.humidity);
+  lpp.addBarometricPressure(BME_280_SENSOR_IDENTIFIER, measureData.pressure);
+  lpp.addDigitalInput(UV_SENSOR_IDENTIFIER, measureData.uvIndex);
+  lpp.addPercentage(SOIL_MOISTURE_SENSOR_IDENTIFIER, measureData.soilMoisture);
+  lpp.addPercentage(RAIN_SENSOR_IDENTIFIER, measureData.rainPercent);
+  lpp.addPercentage(BAT_LEVEL_IDENTIFIER, measureData.batLevel);
 
   return lpp;
 }
@@ -51,9 +53,9 @@ String convertLowPowerPayloadToHexadecimalString(CayenneLPP &lpp)
   return lppString;
 }
 
-String encodeWeatherData(const WeatherData &weatherData)
+String encodeMeasureData(const MeasureData &measureData)
 {
-  CayenneLPP lpp = convertWeatherDataToLowPowerPayload(weatherData);
+  CayenneLPP lpp = convertMeasureDataToLowPowerPayload(measureData);
   String lppString = convertLowPowerPayloadToHexadecimalString(lpp);
 
   return lppString;
@@ -71,7 +73,7 @@ void sendMessage(const String &payload)
   }
 }
 
-void printWeatherDataToSerialMonitor(WeatherData &weatherData)
+void printMeasureDataToSerialMonitor(MeasureData &measureData)
 {
   Serial.printf("Temp: %.2f °C\n"
                 "Humidity: %.2f%% RH\n"
@@ -79,13 +81,15 @@ void printWeatherDataToSerialMonitor(WeatherData &weatherData)
                 "UV index: %d\n"
                 "Soil moisture: %d%%\n"
                 "Rain intensity: %d%%\n"
+                "Battery level: %d%%\n"
                 "---------------------------------------------------------\n",
-                weatherData.temperature,
-                weatherData.humidity,
-                weatherData.pressure,
-                weatherData.uvIndex,
-                weatherData.soilMoisture,
-                weatherData.rainPercent);
+                measureData.temperature,
+                measureData.humidity,
+                measureData.pressure,
+                measureData.uvIndex,
+                measureData.soilMoisture,
+                measureData.rainPercent,
+                measureData.batLevel);
   delay(100); // delay to prevent buffer overflow
 }
 

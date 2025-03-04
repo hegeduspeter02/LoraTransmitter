@@ -1,7 +1,7 @@
 #include <LoraTransmitter.h>
 #include <esp_sleep.h>
 
-WeatherData weatherData;
+MeasureData measureData;
 
 void setup()
 {
@@ -19,6 +19,7 @@ void setup()
   configureLoraTransmitter();
 
   initializeBME280();
+  initializeBatLevelMeasureCircuit();
 
   if (!LoRa.begin(RFM95_COMM_FREQ))
   {
@@ -31,16 +32,17 @@ void setup()
 
 void loop()
 {
-  readBME280Data(weatherData.temperature, weatherData.humidity, weatherData.pressure);
-  determineUVIndex(weatherData.uvIndex);
-  determineSoilMoisture(weatherData.soilMoisture);
-  determineRainStatus(weatherData.rainPercent);
+  readBME280Data(measureData.temperature, measureData.humidity, measureData.pressure);
+  determineUVIndex(measureData.uvIndex);
+  determineSoilMoisture(measureData.soilMoisture);
+  determineRainStatus(measureData.rainPercent);
+  determineBatLevel(measureData.batLevel);
 
-  String payload = encodeWeatherData(weatherData);
+  String payload = encodeMeasureData(measureData);
   sendMessage(payload);
 
 #if DEBUG_MODE
-  printWeatherDataToSerialMonitor(weatherData);
+  printMeasureDataToSerialMonitor(measureData);
 #endif
 
   endLibraries();

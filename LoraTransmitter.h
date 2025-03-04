@@ -8,6 +8,7 @@
 #include <GUVA.h>
 #include <SOILCAP.h>
 #include <SA_28.h>
+#include <BatLevel.h>
 #include <CayenneLPP.h>
 
 /*****************************************************************/
@@ -20,8 +21,8 @@
 #define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 60     // s
-#define PAYLOAD_SIZE 40        // bytes
+#define RFM95_SEND_RATE 10     // s
+#define PAYLOAD_SIZE 23        // bytes
 
 #define RFM95_RESET_PIN 25
 #define RFM95_DIO0_PIN 26
@@ -29,8 +30,6 @@
 #define SPI_SCLK_PIN 18
 #define SPI_MISO_PIN 19
 #define SPI_MOSI_PIN 23
-#define BAT_VOLTAGE_MEAS_EN_PIN 1
-#define BAT_VOLTAGE_MEAS_PIN 33
 #define HIGH_PWR_MODE_PIN 12
 #define LOW_PWR_MODE_PIN 14
 
@@ -38,6 +37,7 @@
 #define UV_SENSOR_IDENTIFIER 2
 #define SOIL_MOISTURE_SENSOR_IDENTIFIER 3
 #define RAIN_SENSOR_IDENTIFIER 4
+#define BAT_LEVEL_IDENTIFIER 5
 
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- START     */
@@ -69,7 +69,7 @@
 /*****************************************************************/
 /* STRUCTURES                                                    */
 /*****************************************************************/
-struct WeatherData
+struct MeasureData
 {
   float temperature;
   float humidity;
@@ -77,6 +77,7 @@ struct WeatherData
   uint8_t uvIndex;
   uint8_t soilMoisture;
   uint8_t rainPercent;
+  uint8_t batLevel;
 };
 
 /*****************************************************************/
@@ -101,24 +102,24 @@ void configureLoraTransmitter();
 /*****************************************************************/
 
 ///////////////////////////////////////////////////////////////
-/// Create a Cayenne Low Power Payload, containing the measured weatherData.
-CayenneLPP convertWeatherDataToLowPowerPayload(const WeatherData &weatherData);
+/// Create a Cayenne Low Power Payload, containing the measured data.
+CayenneLPP convertMeasureDataToLowPowerPayload(const MeasureData &measureData);
 
 ///////////////////////////////////////////////////////////////
 /// Encode the Cayenne Low Power Payload's byte array into a hexadecimal string.
 String convertLowPowerPayloadToHexadecimalString(CayenneLPP &lpp);
 
 ///////////////////////////////////////////////////////////////
-/// Call convertWeatherDataToLowPowerPayload, then convertLowPowerPayloadToHexadecimalString.
-String encodeWeatherData(const WeatherData &weatherData);
+/// Call convertMeasureDataToLowPowerPayload, then convertLowPowerPayloadToHexadecimalString.
+String encodeMeasureData(const MeasureData &measureData);
 
 ///////////////////////////////////////////////////////////////
 /// Initialize a packet, put the data in it, then send it.
 void sendMessage(const String &payload);
 
 ///////////////////////////////////////////////////////////////
-/// Prints the weatherData to the Serial Monitor.
-void printWeatherDataToSerialMonitor(WeatherData &weatherData);
+/// Prints the measureData to the Serial Monitor.
+void printMeasureDataToSerialMonitor(MeasureData &measureData);
 
 ///////////////////////////////////////////////////////////////
 /// Stop the used libraries.
