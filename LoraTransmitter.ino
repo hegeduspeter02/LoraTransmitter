@@ -16,7 +16,8 @@ void setup()
   SPI.begin(SPI_SCLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SPI_CS0_PIN); // set SPI pins
   LoRa.setSPI(SPI);
 
-  configureLoraTransmitter();
+  LoRa.setPins(SPI_CS0_PIN, RFM95_RESET_PIN, RFM95_DIO0_PIN);
+  setLoRaPowerMode();
 
   initializeBME280();
   initializeBatLevelMeasureCircuit();

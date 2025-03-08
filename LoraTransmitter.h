@@ -24,6 +24,7 @@
 #define RFM95_SEND_RATE 10     // s
 #define PAYLOAD_SIZE 23        // bytes
 
+// pins
 #define RFM95_RESET_PIN 25
 #define RFM95_DIO0_PIN 26
 #define SPI_CS0_PIN 5
@@ -33,6 +34,7 @@
 #define HIGH_PWR_MODE_PIN 12
 #define LOW_PWR_MODE_PIN 14
 
+// ids for packet decoding
 #define BME_280_SENSOR_IDENTIFIER 1
 #define UV_SENSOR_IDENTIFIER 2
 #define SOIL_MOISTURE_SENSOR_IDENTIFIER 3
@@ -59,9 +61,10 @@
 
 #define HIGH_POWER_SIGNAL_BANDWIDTH 7.8E3
 #define MEDIUM_POWER_SIGNAL_BANDWIDTH 125E3
+#define LOW_POWER_SIGNAL_BANDWIDTH 250E3
 
 #define HIGH_POWER_CODING_RATE_DENOMINATOR 8   // 4/8
-#define MEDIUM_POWER_CODING_RATE_DENOMINATOR 5 // 4/5
+#define MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR 5 // 4/5
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- END       */
 /*****************************************************************/
@@ -81,6 +84,15 @@ struct MeasureData
 };
 
 /*****************************************************************/
+/* ENUMS                                                         */
+/*****************************************************************/
+enum PowerMode {
+  LOW_POWER_MODE,
+  MEDIUM_POWER_MODE,
+  HIGH_POWER_MODE
+};
+
+/*****************************************************************/
 /* INIT FUNCTIONS                                                */
 /*****************************************************************/
 
@@ -94,8 +106,12 @@ void initializeSerialCommunication();
 void configureGPIO();
 
 ///////////////////////////////////////////////////////////////
-/// Set the configurable parameters of the RFM95 module.
-void configureLoraTransmitter();
+/// Determine LOW/MEDIUM/HIGH power mode based on the switch's state.
+PowerMode determinePowerMode();
+
+///////////////////////////////////////////////////////////////
+/// Configure the radio's params based on the power mode.
+void setLoRaPowerMode();
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */

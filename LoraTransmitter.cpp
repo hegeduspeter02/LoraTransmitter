@@ -1,3 +1,4 @@
+#include "esp32-hal-gpio.h"
 #include <LoraTransmitter.h>
 
 void initializeSerialCommunication()
@@ -15,12 +16,58 @@ void configureGPIO()
   pinMode(SOILCAP_PIN, INPUT);
   pinMode(SA_28_PIN, INPUT);
   gpio_set_pull_mode((gpio_num_t)SA_28_PIN, (gpio_pull_mode_t)GPIO_FLOATING);
+
+  pinMode(LOW_PWR_MODE_PIN, INPUT_PULLUP);
+  pinMode(HIGH_PWR_MODE_PIN, INPUT_PULLUP);
 }
 
-void configureLoraTransmitter()
+
+PowerMode determinePowerMode()
 {
-  LoRa.setPins(SPI_CS0_PIN, RFM95_RESET_PIN, RFM95_DIO0_PIN);
-  LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
+  bool lowPowerPinState = digitalRead(LOW_PWR_MODE_PIN);
+  bool highPowerPinState = digitalRead(HIGH_PWR_MODE_PIN);
+
+  if(lowPowerPinState == HIGH && highPowerPinState == LOW)
+  {
+    return LOW_POWER_MODE;
+  }
+  else if(lowPowerPinState == HIGH && highPowerPinState == HIGH)
+  {
+    return MEDIUM_POWER_MODE;
+  }
+  else
+  {
+    return HIGH_POWER_MODE;
+  }
+}
+
+void setLoRaPowerMode()
+{
+  PowerMode powerMode = determinePowerMode();
+
+  switch(powerMode)
+  {
+    case LOW_POWER_MODE:
+      LoRa.setTxPower(LOW_POWER_RF_AMPLIFIER, PA_OUTPUT_RFO_PIN);
+      LoRa.setSpreadingFactor(LOW_POWER_SPREADING_FACTOR);
+      LoRa.setSignalBandwidth(LOW_POWER_SIGNAL_BANDWIDTH);
+      LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
+      break;
+
+    case MEDIUM_POWER_MODE:
+      LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
+      LoRa.setSpreadingFactor(MEDIUM_POWER_SPREADING_FACTOR);
+      LoRa.setSignalBandwidth(MEDIUM_POWER_SIGNAL_BANDWIDTH);
+      LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
+      break;
+
+    case HIGH_POWER_MODE:
+      LoRa.setTxPower(HIGH_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
+      LoRa.setSpreadingFactor(HIGH_POWER_SPREADING_FACTOR);
+      LoRa.setSignalBandwidth(HIGH_POWER_SIGNAL_BANDWIDTH);
+      LoRa.setCodingRate4(HIGH_POWER_CODING_RATE_DENOMINATOR);
+      break;
+  }
 }
 
 CayenneLPP convertMeasureDataToLowPowerPayload(const MeasureData &measureData)
