@@ -75,9 +75,9 @@ CayenneLPP convertMeasureDataToLowPowerPayload(const MeasureData &measureData)
   CayenneLPP lpp(PAYLOAD_SIZE);
   lpp.reset();
 
-  lpp.addTemperature(BME_280_SENSOR_IDENTIFIER, measureData.temperature);
-  lpp.addRelativeHumidity(BME_280_SENSOR_IDENTIFIER, measureData.humidity);
-  lpp.addBarometricPressure(BME_280_SENSOR_IDENTIFIER, measureData.pressure);
+  lpp.addTemperature(BME_280_TEMPERATURE_SENSOR_IDENTIFIER, measureData.temperature);
+  lpp.addRelativeHumidity(BME_280_HUMIDITY_SENSOR_IDENTIFIER, measureData.humidity);
+  lpp.addBarometricPressure(BME_280_PRESSURE_SENSOR_IDENTIFIER, measureData.pressure);
   lpp.addDigitalInput(UV_SENSOR_IDENTIFIER, measureData.uvIndex);
   lpp.addPercentage(SOIL_MOISTURE_SENSOR_IDENTIFIER, measureData.soilMoisture);
   lpp.addPercentage(RAIN_SENSOR_IDENTIFIER, measureData.rainPercent);
