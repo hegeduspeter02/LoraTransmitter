@@ -28,8 +28,12 @@ void initializeBatLevelMeasureCircuit();
 /*****************************************************************/
 
 ///////////////////////////////////////////////////////////////
-/// Measure one of the battery's voltage through a voltage divider
-/// circuit and determine the battery level (0-100) from it.
+/// Measure one of the battery's voltage.
+uint16_t determineBatVoltage(uint8_t msDelay = 2);
+
+///////////////////////////////////////////////////////////////
+/// Use the Battery Sense library to get the battery level
+/// from its voltage.
 void determineBatLevel(uint8_t &batLevel);
 
 #endif // BAT_LEVEL_H
