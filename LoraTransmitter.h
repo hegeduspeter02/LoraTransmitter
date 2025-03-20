@@ -21,8 +21,19 @@
 #define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 10     // s
-#define PAYLOAD_SIZE 23        // bytes
+#define RFM95_SEND_RATE 60     // s
+#define NO_OF_MEASURED_DATA 7
+#define LPP_DATA_ID_SIZE 1      // byte
+#define LPP_DATA_CHANNEL_SIZE 1 // byte
+#define LPP_DATA_SIZE (LPP_TEMPERATURE_SIZE +         \
+                       LPP_RELATIVE_HUMIDITY_SIZE +   \
+                       LPP_BAROMETRIC_PRESSURE_SIZE + \
+                       LPP_DIGITAL_INPUT_SIZE +       \
+                       (LPP_PERCENTAGE_SIZE * 3)) // bytes
+
+#define PAYLOAD_SIZE ((LPP_DATA_ID_SIZE * NO_OF_MEASURED_DATA) +      \
+                      (LPP_DATA_CHANNEL_SIZE * NO_OF_MEASURED_DATA) + \
+                      LPP_DATA_SIZE) // bytes
 
 // pins
 #define RFM95_RESET_PIN 25
@@ -35,13 +46,13 @@
 #define LOW_PWR_MODE_PIN 14
 
 // ids for packet decoding
-#define BME_280_TEMPERATURE_SENSOR_IDENTIFIER 0
-#define BME_280_HUMIDITY_SENSOR_IDENTIFIER 1
-#define BME_280_PRESSURE_SENSOR_IDENTIFIER 2
-#define UV_SENSOR_IDENTIFIER 3
-#define SOIL_MOISTURE_SENSOR_IDENTIFIER 4
-#define RAIN_SENSOR_IDENTIFIER 5
-#define BAT_LEVEL_IDENTIFIER 6
+#define BME_280_TEMPERATURE_SENSOR_ID 0
+#define BME_280_HUMIDITY_SENSOR_ID 1
+#define BME_280_PRESSURE_SENSOR_ID 2
+#define UV_SENSOR_ID 3
+#define SOIL_MOISTURE_SENSOR_ID 4
+#define RAIN_SENSOR_ID 5
+#define BAT_LEVEL_ID 6
 
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- START     */
@@ -65,7 +76,7 @@
 #define MEDIUM_POWER_SIGNAL_BANDWIDTH 125E3
 #define LOW_POWER_SIGNAL_BANDWIDTH 250E3
 
-#define HIGH_POWER_CODING_RATE_DENOMINATOR 8   // 4/8
+#define HIGH_POWER_CODING_RATE_DENOMINATOR 8           // 4/8
 #define MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR 5 // 4/5
 /*****************************************************************/
 /* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- END       */
@@ -88,7 +99,8 @@ struct MeasureData
 /*****************************************************************/
 /* ENUMS                                                         */
 /*****************************************************************/
-enum PowerMode {
+enum PowerMode
+{
   LOW_POWER_MODE,
   MEDIUM_POWER_MODE,
   HIGH_POWER_MODE
