@@ -21,7 +21,7 @@
 #define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 60     // s
+#define RFM95_SEND_RATE 10     // s
 #define NO_OF_MEASURED_DATA 7
 #define LPP_DATA_ID_SIZE 1      // byte
 #define LPP_DATA_CHANNEL_SIZE 1 // byte
@@ -30,7 +30,6 @@
                        LPP_BAROMETRIC_PRESSURE_SIZE + \
                        LPP_DIGITAL_INPUT_SIZE +       \
                        (LPP_PERCENTAGE_SIZE * 3)) // bytes
-
 #define PAYLOAD_SIZE ((LPP_DATA_ID_SIZE * NO_OF_MEASURED_DATA) +      \
                       (LPP_DATA_CHANNEL_SIZE * NO_OF_MEASURED_DATA) + \
                       LPP_DATA_SIZE) // bytes
@@ -72,8 +71,7 @@
 #define MEDIUM_POWER_SPREADING_FACTOR 10
 #define LOW_POWER_SPREADING_FACTOR 7
 
-#define HIGH_POWER_SIGNAL_BANDWIDTH 7.8E3
-#define MEDIUM_POWER_SIGNAL_BANDWIDTH 125E3
+#define HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH 125E3
 #define LOW_POWER_SIGNAL_BANDWIDTH 250E3
 
 #define HIGH_POWER_CODING_RATE_DENOMINATOR 8           // 4/8
@@ -122,6 +120,10 @@ void configureGPIO();
 ///////////////////////////////////////////////////////////////
 /// Determine LOW/MEDIUM/HIGH power mode based on the switch's state.
 PowerMode determinePowerMode();
+
+///////////////////////////////////////////////////////////////
+/// Convert the power mode to a string for debugging purposes.
+String powerModeToString(); 
 
 ///////////////////////////////////////////////////////////////
 /// Configure the radio's params based on the power mode.

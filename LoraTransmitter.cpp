@@ -1,3 +1,4 @@
+#include "BatLevel.h"
 #include "esp32-hal-gpio.h"
 #include <LoraTransmitter.h>
 
@@ -19,6 +20,9 @@ void configureGPIO()
 
   pinMode(LOW_PWR_MODE_PIN, INPUT_PULLUP);
   pinMode(HIGH_PWR_MODE_PIN, INPUT_PULLUP);
+
+  pinMode(BAT_LEVEL_MEAS_EN_PIN, OUTPUT);
+  pinMode(BAT_LEVEL_MEAS_PIN, INPUT);
 }
 
 
@@ -41,6 +45,20 @@ PowerMode determinePowerMode()
   }
 }
 
+String powerModeToString()
+{
+  PowerMode powerMode = determinePowerMode();
+  switch(powerMode)
+  {
+    case LOW_POWER_MODE:
+      return "Low Power Mode";
+    case MEDIUM_POWER_MODE:
+      return "Medium Power Mode";
+    case HIGH_POWER_MODE:
+      return "High Power Mode";
+  }
+}
+
 void setLoRaPowerMode()
 {
   PowerMode powerMode = determinePowerMode();
@@ -57,14 +75,14 @@ void setLoRaPowerMode()
     case MEDIUM_POWER_MODE:
       LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
       LoRa.setSpreadingFactor(MEDIUM_POWER_SPREADING_FACTOR);
-      LoRa.setSignalBandwidth(MEDIUM_POWER_SIGNAL_BANDWIDTH);
+      LoRa.setSignalBandwidth(HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH);
       LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
       break;
 
     case HIGH_POWER_MODE:
       LoRa.setTxPower(HIGH_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
       LoRa.setSpreadingFactor(HIGH_POWER_SPREADING_FACTOR);
-      LoRa.setSignalBandwidth(HIGH_POWER_SIGNAL_BANDWIDTH);
+      LoRa.setSignalBandwidth(HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH);
       LoRa.setCodingRate4(HIGH_POWER_CODING_RATE_DENOMINATOR);
       break;
   }
