@@ -17,7 +17,6 @@ void setup()
   LoRa.setSPI(SPI);
 
   LoRa.setPins(SPI_CS0_PIN, RFM95_RESET_PIN, RFM95_DIO0_PIN);
-  setLoRaPowerMode();
 
   initializeBME280();
   initializeBatLevelMeasureCircuit();
@@ -28,6 +27,7 @@ void setup()
     while (1);
   }
 
+  setLoRaPowerMode();
   esp_sleep_enable_timer_wakeup(RFM95_SEND_RATE * uS_TO_S_FACTOR);
 }
 

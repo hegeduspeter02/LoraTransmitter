@@ -134,7 +134,11 @@ void sendMessage(const String &payload)
   if (readyToTransmit)
   {
     LoRa.print(payload); // write data to the packet
-    LoRa.endPacket();    // finish packet and wait for transmission to complete
+
+    unsigned long startTime = millis(); // record the start time
+    LoRa.endPacket();                   // finish packet and wait for transmission to complete
+    unsigned long endTime = millis();   // record the end time
+    Serial.printf("Transmission time: %lu ms\n", endTime - startTime); // print the transmission time
   }
 }
 
