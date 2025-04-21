@@ -138,16 +138,8 @@ void setLoRaPowerMode();
 CayenneLPP convertMeasureDataToLowPowerPayload(const MeasureData &measureData);
 
 ///////////////////////////////////////////////////////////////
-/// Encode the Cayenne Low Power Payload's byte array into a hexadecimal string.
-String convertLowPowerPayloadToHexadecimalString(CayenneLPP &lpp);
-
-///////////////////////////////////////////////////////////////
-/// Call convertMeasureDataToLowPowerPayload, then convertLowPowerPayloadToHexadecimalString.
-String encodeMeasureData(const MeasureData &measureData);
-
-///////////////////////////////////////////////////////////////
 /// Initialize a packet, put the data in it, then send it.
-void sendMessage(const String &payload);
+void sendMessage(CayenneLPP &lpp);
 
 ///////////////////////////////////////////////////////////////
 /// Prints the measureData to the Serial Monitor.

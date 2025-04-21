@@ -104,36 +104,14 @@ CayenneLPP convertMeasureDataToLowPowerPayload(const MeasureData &measureData)
   return lpp;
 }
 
-String convertLowPowerPayloadToHexadecimalString(CayenneLPP &lpp)
-{
-  String lppString;
-
-  for (int i = 0; i < lpp.getSize(); i++)
-  {
-    char buffer[3];
-    sprintf(buffer, "%02X", lpp.getBuffer()[i]); // convert each byte to hex
-    lppString += buffer;
-  }
-
-  return lppString;
-}
-
-String encodeMeasureData(const MeasureData &measureData)
-{
-  CayenneLPP lpp = convertMeasureDataToLowPowerPayload(measureData);
-  String lppString = convertLowPowerPayloadToHexadecimalString(lpp);
-
-  return lppString;
-}
-
-void sendMessage(const String &payload)
+void sendMessage(CayenneLPP &lpp)
 {
   // set radio to idle mode, set up packet, use explicit header mode
   uint8_t readyToTransmit = LoRa.beginPacket();
 
   if (readyToTransmit)
   {
-    LoRa.print(payload); // write data to the packet
+    LoRa.write(lpp.getBuffer(), lpp.getSize()); // write data to the packet
 
     unsigned long startTime = millis(); // record the start time
     LoRa.endPacket();                   // finish packet and wait for transmission to complete

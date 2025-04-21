@@ -39,8 +39,8 @@ void loop()
   determineRainStatus(measureData.rainPercent);
   determineBatLevel(measureData.batLevel);
 
-  String payload = encodeMeasureData(measureData);
-  sendMessage(payload);
+  CayenneLPP lpp = convertMeasureDataToLowPowerPayload(measureData);
+  sendMessage(lpp);
 
 #if DEBUG_MODE
   printMeasureDataToSerialMonitor(measureData);
