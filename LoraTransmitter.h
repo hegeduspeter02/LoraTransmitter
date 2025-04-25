@@ -21,7 +21,7 @@
 #define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 10     // s
+#define RFM95_SEND_RATE 300    // s
 #define NO_OF_MEASURED_DATA 7
 #define LPP_DATA_ID_SIZE 1      // byte
 #define LPP_DATA_CHANNEL_SIZE 1 // byte
@@ -65,14 +65,14 @@
 */
 #define HIGH_POWER_RF_AMPLIFIER 20   // dBm
 #define MEDIUM_POWER_RF_AMPLIFIER 17 // dBm
-#define LOW_POWER_RF_AMPLIFIER 7     // dBm
+#define LOW_POWER_RF_AMPLIFIER 14    // dBm
 
 #define HIGH_POWER_SPREADING_FACTOR 12
 #define MEDIUM_POWER_SPREADING_FACTOR 10
 #define LOW_POWER_SPREADING_FACTOR 7
 
-#define HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH 125E3
-#define LOW_POWER_SIGNAL_BANDWIDTH 250E3
+#define HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH 125E3 // Hz
+#define LOW_POWER_SIGNAL_BANDWIDTH 250E3             // Hz
 
 #define HIGH_POWER_CODING_RATE_DENOMINATOR 8           // 4/8
 #define MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR 5 // 4/5
@@ -123,7 +123,7 @@ PowerMode determinePowerMode();
 
 ///////////////////////////////////////////////////////////////
 /// Convert the power mode to a string for debugging purposes.
-String powerModeToString(); 
+String powerModeToString();
 
 ///////////////////////////////////////////////////////////////
 /// Configure the radio's params based on the power mode.

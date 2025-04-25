@@ -66,7 +66,7 @@ void setLoRaPowerMode()
   switch(powerMode)
   {
     case LOW_POWER_MODE:
-      LoRa.setTxPower(LOW_POWER_RF_AMPLIFIER, PA_OUTPUT_RFO_PIN);
+      LoRa.setTxPower(LOW_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
       LoRa.setSpreadingFactor(LOW_POWER_SPREADING_FACTOR);
       LoRa.setSignalBandwidth(LOW_POWER_SIGNAL_BANDWIDTH);
       LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
