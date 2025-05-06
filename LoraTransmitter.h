@@ -4,11 +4,11 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <LoRa.h>
-#include <BME_280.h>
-#include <GUVA.h>
-#include <SOILCAP.h>
-#include <SA_28.h>
-#include <BatLevel.h>
+#include "src/BME_280.h"
+#include "src/GUVA.h"
+#include "src/SOILCAP.h"
+#include "src/SA_28.h"
+#include "src/BatLevel.h"
 #include <CayenneLPP.h>
 
 /*****************************************************************/

@@ -1,7 +1,7 @@
 #ifndef SOILCAP_H
 #define SOILCAP_H
 
-#include <CommonFunctions.h>
+#include "src/CommonFunctions.h"
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */

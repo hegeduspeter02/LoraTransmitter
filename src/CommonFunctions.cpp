@@ -1,4 +1,4 @@
-#include <CommonFunctions.h>
+#include "src/CommonFunctions.h"
 
 uint16_t readAnalogSensorVoltage(const uint16_t number_of_samples, const uint8_t pin)
 {

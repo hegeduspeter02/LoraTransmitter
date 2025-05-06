@@ -1,4 +1,4 @@
-#include <SOILCAP.h>
+#include "src/SOILCAP.h"
 
 void determineSoilMoisture(uint8_t &soilMoisture)
 {

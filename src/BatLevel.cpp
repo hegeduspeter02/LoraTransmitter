@@ -1,6 +1,6 @@
 #include "esp32-hal-adc.h"
 #include "hal/adc_types.h"
-#include <BatLevel.h>
+#include "src/BatLevel.h"
 
 Battery batt = Battery(BAT_MIN_VOLTAGE_MV, BAT_MAX_VOLTAGE_MV, BAT_LEVEL_MEAS_PIN, ADC_BITWIDTH_12);
 

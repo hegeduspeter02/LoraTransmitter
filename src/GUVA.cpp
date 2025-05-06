@@ -1,4 +1,4 @@
-#include <GUVA.h>
+#include "src/GUVA.h"
 
 uint8_t convertVoltageToUVIndex(uint16_t &guvaVoltage)
 {

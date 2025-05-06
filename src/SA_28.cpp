@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <SA_28.h>
+#include "src/SA_28.h"
 
 void determineRainStatus(uint8_t &rainPercent)
 {

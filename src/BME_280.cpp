@@ -8,7 +8,7 @@
   SCK (Serial Clock)  ->  D22 (defined in variants\doitESP32devkitV1\pins_arduino.h)
 */
 
-#include <BME_280.h> // own header file
+#include "src/BME_280.h"
 
 /****************************************************************/
 BME280I2C::Settings bmeSettings(

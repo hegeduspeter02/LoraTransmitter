@@ -1,4 +1,3 @@
-#include "BatLevel.h"
 #include "esp32-hal-gpio.h"
 #include <LoraTransmitter.h>
 

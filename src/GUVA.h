@@ -1,7 +1,7 @@
 #ifndef GUVA_H
 #define GUVA_H
 
-#include <CommonFunctions.h>
+#include "src/CommonFunctions.h"
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
