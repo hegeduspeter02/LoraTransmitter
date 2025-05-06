@@ -15,12 +15,12 @@
     - Using CLI:
 
       ```bash
-      # Install required libraries
       arduino-cli lib install "LoRa"
       arduino-cli lib install "BME280"
       arduino-cli lib install "Battery Sense"
       arduino-cli lib install "ArduinoJson"
       arduino-cli lib install "CayenneLPP"
+      
       ```
 
     - Using Arduino IDE:
