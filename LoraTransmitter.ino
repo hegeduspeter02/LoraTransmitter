@@ -9,9 +9,9 @@ void setup()
 
   setCpuFrequencyMhz(80); // MHz
 
-  Wire.begin(); // set the SDA and SCK pins on the ESP
-
   configureGPIO();
+
+  Wire.begin(); // set the SDA and SCK pins on the ESP
 
   SPI.begin(SPI_SCLK_PIN, SPI_MISO_PIN, SPI_MOSI_PIN, SPI_CS0_PIN); // set SPI pins
   LoRa.setSPI(SPI);
