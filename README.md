@@ -13,11 +13,16 @@
 
 4. Install libraries
     - Using CLI:
-      - LoRa: `arduino-cli lib install "LoRa"`
-      - BME 280: `arduino-cli lib install "BME280"`
-      - Battery Sense: `arduino-cli lib install "Battery Sense"`
-      - Arduino JSON: `arduino-cli lib install "ArduinoJson"`
-      - CayenneLPP: `arduino-cli lib install "CayenneLPP"`
+
+      ```bash
+      # Install required libraries
+      arduino-cli lib install "LoRa"
+      arduino-cli lib install "BME280"
+      arduino-cli lib install "Battery Sense"
+      arduino-cli lib install "ArduinoJson"
+      arduino-cli lib install "CayenneLPP"
+      ```
+
     - Using Arduino IDE:
       - Open **Library Manager** and search for the libraries above & install them
 
