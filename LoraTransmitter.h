@@ -21,7 +21,7 @@
 #define SERIAL_BAUD 115200 // bps
 #define RFM95_COMM_FREQ 868E6
 #define uS_TO_S_FACTOR 1000000 // us
-#define RFM95_SEND_RATE 300    // s
+#define RFM95_SEND_RATE 60    // s
 #define NO_OF_MEASURED_DATA 7
 #define LPP_DATA_ID_SIZE 1      // byte
 #define LPP_DATA_CHANNEL_SIZE 1 // byte
