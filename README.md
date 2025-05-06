@@ -15,7 +15,6 @@
     - Using CLI:
 
       ```bash
-      arduino-cli lib install "LoRa"
       arduino-cli lib install "BME280"
       arduino-cli lib install "Battery Sense"
       arduino-cli lib install "ArduinoJson"
@@ -26,11 +25,17 @@
     - Using Arduino IDE:
       - Open **Library Manager** and search for the libraries above & install them
 
-5. Build the project
+5. Install the LoRa library manually (because some functions are missing if installed through command line or Library Manager)
+    - Download the library in ZIP from: <https://github.com/sandeepmistry/arduino-LoRa>
+    - There are two options for installing:
+        1. Extract it to C:\Users\UserName\Documents\Arduino\libraries\LoRa
+        2. In Arduino IDE, go to Sketch -> Include Library -> Add .ZIP Library...
+
+6. Build the project
     - Using CLI: `make` or `make compile`
     - Using Arduino IDE: Use the Verify button
 
-6. Upload the project to the MCU
+7. Upload the project to the MCU
     - Using CLI:
       - set the correct PORT in the Makefile
       - `make upload`
