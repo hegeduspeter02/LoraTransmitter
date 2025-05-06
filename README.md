@@ -3,7 +3,7 @@
 ## Project setup
 
 1. Install Make (through GnuWin): <https://gnuwin32.sourceforge.net/packages/make.htm>
-2. Install Arduino CLI: <https://docs.arduino.cc/arduino-cli/installation/>
+2. Install Arduino CLI: <https://docs.arduino.cc/arduino-cli/installation/>\
 *Optional:* Install Arduino IDE: <https://www.arduino.cc/en/software/>
 
 3. Install the esp32 platform
