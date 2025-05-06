@@ -54,7 +54,7 @@
 #define BAT_LEVEL_ID 6
 
 /*****************************************************************/
-/* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- START     */
+/* PREDEFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- START     */
 /*****************************************************************/
 /*
   For the high and medium power rf amplifier setting,
@@ -77,7 +77,7 @@
 #define HIGH_POWER_CODING_RATE_DENOMINATOR 8           // 4/8
 #define MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR 5 // 4/5
 /*****************************************************************/
-/* PREDIFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- END       */
+/* PREDEFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- END       */
 /*****************************************************************/
 
 /*****************************************************************/
