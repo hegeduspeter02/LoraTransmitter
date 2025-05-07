@@ -4,7 +4,9 @@
 void initializeSerialCommunication()
 {
   Serial.begin(SERIAL_BAUD);
-  while (!Serial){} // wait until the serial port is ready and connected
+  while (!Serial)
+  {
+  } // wait until the serial port is ready and connected
 }
 
 void configureGPIO()
@@ -24,17 +26,16 @@ void configureGPIO()
   pinMode(BAT_LEVEL_MEAS_PIN, INPUT);
 }
 
-
 PowerMode determinePowerMode()
 {
   bool lowPowerPinState = digitalRead(LOW_PWR_MODE_PIN);
   bool highPowerPinState = digitalRead(HIGH_PWR_MODE_PIN);
 
-  if(lowPowerPinState == HIGH && highPowerPinState == LOW)
+  if (lowPowerPinState == HIGH && highPowerPinState == LOW)
   {
     return LOW_POWER_MODE;
   }
-  else if(lowPowerPinState == HIGH && highPowerPinState == HIGH)
+  else if (lowPowerPinState == HIGH && highPowerPinState == HIGH)
   {
     return MEDIUM_POWER_MODE;
   }
@@ -44,46 +45,46 @@ PowerMode determinePowerMode()
   }
 }
 
-String powerModeToString()
-{
-  PowerMode powerMode = determinePowerMode();
-  switch(powerMode)
-  {
-    case LOW_POWER_MODE:
-      return "Low Power Mode";
-    case MEDIUM_POWER_MODE:
-      return "Medium Power Mode";
-    case HIGH_POWER_MODE:
-      return "High Power Mode";
-  }
-}
-
 void setLoRaPowerMode()
 {
   PowerMode powerMode = determinePowerMode();
 
-  switch(powerMode)
+  switch (powerMode)
   {
-    case LOW_POWER_MODE:
-      LoRa.setTxPower(LOW_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
-      LoRa.setSpreadingFactor(LOW_POWER_SPREADING_FACTOR);
-      LoRa.setSignalBandwidth(LOW_POWER_SIGNAL_BANDWIDTH);
-      LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
-      break;
+  case LOW_POWER_MODE:
+    LoRa.setTxPower(LOW_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
+    LoRa.setSpreadingFactor(LOW_POWER_SPREADING_FACTOR);
+    LoRa.setSignalBandwidth(LOW_POWER_SIGNAL_BANDWIDTH);
+    LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
+    break;
 
-    case MEDIUM_POWER_MODE:
-      LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
-      LoRa.setSpreadingFactor(MEDIUM_POWER_SPREADING_FACTOR);
-      LoRa.setSignalBandwidth(HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH);
-      LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
-      break;
+  case MEDIUM_POWER_MODE:
+    LoRa.setTxPower(MEDIUM_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
+    LoRa.setSpreadingFactor(MEDIUM_POWER_SPREADING_FACTOR);
+    LoRa.setSignalBandwidth(HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH);
+    LoRa.setCodingRate4(MEDIUM_AND_LOW_POWER_CODING_RATE_DENOMINATOR);
+    break;
 
-    case HIGH_POWER_MODE:
-      LoRa.setTxPower(HIGH_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
-      LoRa.setSpreadingFactor(HIGH_POWER_SPREADING_FACTOR);
-      LoRa.setSignalBandwidth(HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH);
-      LoRa.setCodingRate4(HIGH_POWER_CODING_RATE_DENOMINATOR);
-      break;
+  case HIGH_POWER_MODE:
+    LoRa.setTxPower(HIGH_POWER_RF_AMPLIFIER, PA_OUTPUT_PA_BOOST_PIN);
+    LoRa.setSpreadingFactor(HIGH_POWER_SPREADING_FACTOR);
+    LoRa.setSignalBandwidth(HIGH_AND_MEDIUM_POWER_SIGNAL_BANDWIDTH);
+    LoRa.setCodingRate4(HIGH_POWER_CODING_RATE_DENOMINATOR);
+    break;
+  }
+}
+
+String powerModeToString()
+{
+  PowerMode powerMode = determinePowerMode();
+  switch (powerMode)
+  {
+  case LOW_POWER_MODE:
+    return "Low Power Mode";
+  case MEDIUM_POWER_MODE:
+    return "Medium Power Mode";
+  case HIGH_POWER_MODE:
+    return "High Power Mode";
   }
 }
 
@@ -112,10 +113,13 @@ void sendMessage(CayenneLPP &lpp)
   {
     LoRa.write(lpp.getBuffer(), lpp.getSize()); // write data to the packet
 
-    unsigned long startTime = millis(); // record the start time
-    LoRa.endPacket();                   // finish packet and wait for transmission to complete
-    unsigned long endTime = millis();   // record the end time
-    Serial.printf("Transmission time: %lu ms\n", endTime - startTime); // print the transmission time
+    unsigned long startTime = millis();
+    LoRa.endPacket(); // finish packet and wait for transmission to complete
+    unsigned long endTime = millis();
+
+    #if DEBUG_MODE
+      Serial.printf("Transmission time: %lu ms\n", endTime - startTime); // print the transmission time
+    #endif
   }
 }
 

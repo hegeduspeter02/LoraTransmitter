@@ -4,12 +4,12 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <LoRa.h>
+#include <CayenneLPP.h>
 #include "src/BME_280.h"
 #include "src/GUVA.h"
 #include "src/SOILCAP.h"
 #include "src/SA_28.h"
 #include "src/BatLevel.h"
-#include <CayenneLPP.h>
 
 /*****************************************************************/
 /* GLOBAL CONSTS                                                 */
@@ -57,11 +57,8 @@
 /* PREDEFINED CONSTS FOR OPTIMIZING POWER CONSUMPTION- START     */
 /*****************************************************************/
 /*
-  For the high and medium power rf amplifier setting,
-  the PA_OUTPUT_PA_BOOST_PIN needs to be used (between +2 and +20 dBm).
-
-  For the low power rf amplifier setting, the PA_OUTPUT_RFO_PIN
-  should be used (between 0 and +14 dBm), for lower current consumption.
+  The antenna is connected to the PA_OUTPUT_PA_BOOST_PIN, 
+  so this pin should be used for the RF amplifier.
 */
 #define HIGH_POWER_RF_AMPLIFIER 20   // dBm
 #define MEDIUM_POWER_RF_AMPLIFIER 17 // dBm
@@ -122,12 +119,12 @@ void configureGPIO();
 PowerMode determinePowerMode();
 
 ///////////////////////////////////////////////////////////////
-/// Convert the power mode to a string for debugging purposes.
-String powerModeToString();
-
-///////////////////////////////////////////////////////////////
 /// Configure the radio's params based on the power mode.
 void setLoRaPowerMode();
+
+///////////////////////////////////////////////////////////////
+/// Convert the power mode to a string for debugging purposes.
+String powerModeToString();
 
 /*****************************************************************/
 /* WORKER FUNCTIONS                                              */
@@ -142,7 +139,7 @@ CayenneLPP convertMeasureDataToLowPowerPayload(const MeasureData &measureData);
 void sendMessage(CayenneLPP &lpp);
 
 ///////////////////////////////////////////////////////////////
-/// Prints the measureData to the Serial Monitor.
+/// Prints the measured data to the Serial Monitor.
 void printMeasureDataToSerialMonitor(MeasureData &measureData);
 
 ///////////////////////////////////////////////////////////////

@@ -1,5 +1,4 @@
 #include <LoraTransmitter.h>
-#include <esp_sleep.h>
 
 MeasureData measureData;
 
