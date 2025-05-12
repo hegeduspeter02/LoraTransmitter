@@ -1,5 +1,9 @@
 # LoRa Transmitter
 
+## Image of the prototype
+
+![LoRa Transmitter](schematics/LoraTransmitter_top_down_view.jpg)
+
 ## Project setup
 
 1. Install Make (through GnuWin): <https://gnuwin32.sourceforge.net/packages/make.htm>
